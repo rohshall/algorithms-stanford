@@ -11,22 +11,12 @@ public class MergeSort {
     public static int[] merge(int[] x, int[] y) {
         int[] result = new int[x.length + y.length];
         for(int k=0, i=0, j=0; k<result.length; k++) {
-            if (x[i] < y[j]) {
+            if (j >= y.length || (i < x.length && x[i] <= y[j])) {
                 result[k] = x[i];
-
-                if (i+1 == x.length) {
-                    x[i] = Integer.MAX_VALUE;
-                } else {
-                    i++;
-                }
+                i++;
             } else {
                 result[k] = y[j];
-
-                if (j+1 == y.length) {
-                    y[j] = Integer.MAX_VALUE;
-                } else {
-                    j++;
-                }
+                j++;
             }
         }
         return result;
@@ -48,7 +38,7 @@ public class MergeSort {
 
     public static void main(String[] args) {
 
-        int x[] = {1,3,5,7,9, 2,4,6,8};
+        int x[] = {1,3,5,7,8,9, 2,4,6,8};
         System.out.println(Arrays.toString(sort(x)));
     }
 }
