@@ -32,11 +32,23 @@ public class MergeSort {
         return result;
     }
 
+    public static int[] sort(int[] array) {
+
+        if (array.length == 1) {
+            return array;
+        }
+
+        int length = array.length;
+        int halfSize = length/2;
+
+        int[] ar1 = Arrays.copyOfRange(array, 0, halfSize);
+        int[] ar2 = Arrays.copyOfRange(array, halfSize, length);
+        return merge(sort(ar1), sort(ar2));
+    }
+
     public static void main(String[] args) {
-        int x[] = {1,3,5,7,9};
-        int y[] = {2,4,6, 8};
 
-
-        System.out.println(Arrays.toString(merge(x,y)));
+        int x[] = {1,3,5,7,9, 2,4,6,8};
+        System.out.println(Arrays.toString(sort(x)));
     }
 }
