@@ -6,7 +6,7 @@
     </list>
     <ignored path="Algo.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359540631434" ignored="false" />
+    <file path="/Dummy.txt" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359542101651" ignored="false" />
     <file path="/CountingInvertions.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359537968481" ignored="false" />
     <file path="/InversionsTest.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359540544328" ignored="false" />
     <file path="/fragment.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359539223822" ignored="false" />
@@ -29,7 +29,6 @@
     <sortChildren value="false" />
   </component>
   <component name="DebuggerManager">
-    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -65,6 +64,7 @@
       </breakpoint>
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -77,7 +77,7 @@
       <file leaf-file-name="InversionsTest.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/java/org/mcvly/algo/dnq/inversions/InversionsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="95" selection-start="392" selection-end="392" vertical-scroll-proportion="0.39187706">
+            <state line="28" column="65" selection-start="565" selection-end="565" vertical-scroll-proportion="0.5225027">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1850#1859#0" expanded="true" />
@@ -152,6 +152,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -186,7 +187,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -447,11 +447,12 @@
     <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
     <option name="FORCE_UPDATE" value="false" />
     <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="true">C:\Users\RMalyona\AppData\Roaming\Subversion</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1874" height="1096" extended-state="7" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276414" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -463,12 +464,12 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IvyIDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.6723586" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67022413" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -541,67 +542,69 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/merge/MergeSort.java">
+    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/java/org/mcvly/algo/dnq/inversions/InversionsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="61" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="27" column="29" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1850#1859#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/java/org/mcvly/algo/dnq/inversions/InversionsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="134" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1850#1859#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/merge/MergeSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="1" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="11" column="61" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/merge/MergeSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="44" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="44" column="1" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/merge/MergeSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="82" selection-start="598" selection-end="598" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="21" column="44" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/merge/MergeSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="82" selection-start="598" selection-end="598" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/divide-n-conquer.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.10.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="40" selection-start="388" selection-end="388" vertical-scroll-proportion="0.33203125">
-          <folding />
-        </state>
+        <state line="11" column="40" selection-start="388" selection-end="388" vertical-scroll-proportion="0.33203125" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/merge/MergeSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="24" selection-start="500" selection-end="500" vertical-scroll-proportion="0.35455543">
-          <folding />
-        </state>
+        <state line="19" column="24" selection-start="500" selection-end="500" vertical-scroll-proportion="0.35455543" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/resources/gistfile1.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="30" selection-end="35" vertical-scroll-proportion="0.09330406">
-          <folding />
-        </state>
+        <state line="5" column="0" selection-start="30" selection-end="35" vertical-scroll-proportion="0.09330406" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/resources/assignment.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99999" column="5" selection-start="588894" selection-end="588894" vertical-scroll-proportion="0.9626784">
-          <folding />
-        </state>
+        <state line="99999" column="5" selection-start="588894" selection-end="588894" vertical-scroll-proportion="0.9626784" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/inversions/CountingInversions.java">
@@ -613,14 +616,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/ant.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/java/org/mcvly/algo/dnq/inversions/InversionsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="95" selection-start="392" selection-end="392" vertical-scroll-proportion="0.39187706">
+        <state line="28" column="65" selection-start="565" selection-end="565" vertical-scroll-proportion="0.5225027">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1850#1859#0" expanded="true" />
