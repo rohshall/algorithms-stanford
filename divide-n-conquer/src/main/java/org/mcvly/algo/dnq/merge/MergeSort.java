@@ -1,4 +1,4 @@
-package org.mcvly.algo.merge;
+package org.mcvly.algo.dnq.merge;
 
 import java.util.Arrays;
 
