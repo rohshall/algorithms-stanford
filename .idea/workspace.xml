@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/MatricesMultiplication.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/MatrixUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/NaiveMultiplication.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/StrassensMultiplication.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Algo.iws" />
@@ -9,7 +13,11 @@
     <file path="/Dummy.txt" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359542101651" ignored="false" />
     <file path="/CountingInvertions.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359537968481" ignored="false" />
     <file path="/InversionsTest.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359540544328" ignored="false" />
-    <file path="/fragment.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359539223822" ignored="false" />
+    <file path="/fragment.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359554062429" ignored="false" />
+    <file path="/MatrixUtils.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359544888803" ignored="false" />
+    <file path="/NaiveMultiplication.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359561578914" ignored="false" />
+    <file path="/MatricesMultiplication.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359543664310" ignored="false" />
+    <file path="/StrassensMultiplication.java" changelist="4ddb54d6-7fa8-4659-b456-17af9f7ec1e3" time="1359561803935" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,14 +82,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="InversionsTest.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/java/org/mcvly/algo/dnq/inversions/InversionsTest.java">
+      <file leaf-file-name="StrassensMultiplication.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/StrassensMultiplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="65" selection-start="565" selection-end="565" vertical-scroll-proportion="0.5225027">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1850#1859#0" expanded="true" />
-              </folding>
+            <state line="57" column="41" selection-start="2044" selection-end="2044" vertical-scroll-proportion="0.5883644">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -104,8 +109,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/into/src/org/mcvly/algo/merge/MergeSort.java" />
-        <option value="$PROJECT_DIR$/divide-n-conquer/src/org/mcvly/algo/dnq/merge/MergeSort.java" />
         <option value="$PROJECT_DIR$/divide-n-conquer/src/org/mcvly/algo/dnq/invertions/CountingInvertions.java" />
         <option value="$PROJECT_DIR$/divide-n-conquer/src/org/mcvly/algo/dnq/invertions/CountingInversions.java" />
         <option value="$PROJECT_DIR$/divide-n-conquer/src/org/mcvly/algo/dnq/inversions/CountingInversions.java" />
@@ -117,6 +120,11 @@
         <option value="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/inversions/CountingInversions.java" />
         <option value="$PROJECT_DIR$/divide-n-conquer/src/test/resources/assignment.txt" />
         <option value="$PROJECT_DIR$/divide-n-conquer/src/test/java/org/mcvly/algo/dnq/inversions/InversionsTest.java" />
+        <option value="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/MatrixMultiplication.java" />
+        <option value="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/MatricesMultiplication.java" />
+        <option value="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/MatrixUtils.java" />
+        <option value="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/NaiveMultiplication.java" />
+        <option value="$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/StrassensMultiplication.java" />
       </list>
     </option>
   </component>
@@ -171,6 +179,76 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Algo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="divide-n-conquer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Algo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="divide-n-conquer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dnq" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Algo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="divide-n-conquer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dnq" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="matricies" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane">
@@ -193,6 +271,7 @@
     <property name="last_directory_selection" value="$PROJECT_DIR$/divide-n-conquer/test/main" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="OverrideImplement.combined" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
@@ -222,7 +301,7 @@
       <recent name="D:\work\Algo\divide-n-conquer\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.InversionsTest">
+  <component name="RunManager" selected="Application.StrassensMultiplication">
     <configuration default="false" name="InversionsTest.testLargeArray" type="JUnit" factoryName="JUnit" temporary="true">
       <module name="divide-n-conquer" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -248,56 +327,6 @@
       </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="InversionsTest.testWorstCase" type="JUnit" factoryName="JUnit" temporary="true">
-      <module name="divide-n-conquer" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.mcvly.algo.dnq.inversions" />
-      <option name="MAIN_CLASS_NAME" value="org.mcvly.algo.dnq.inversions.InversionsTest" />
-      <option name="METHOD_NAME" value="testWorstCase" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="InversionsTest.testNonTrivial" type="JUnit" factoryName="JUnit" temporary="true">
-      <module name="divide-n-conquer" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.mcvly.algo.dnq.inversions" />
-      <option name="MAIN_CLASS_NAME" value="org.mcvly.algo.dnq.inversions.InversionsTest" />
-      <option name="METHOD_NAME" value="testNonTrivial" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -342,6 +371,44 @@
       <envs />
       <patterns />
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="NaiveMultiplication" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="org.mcvly.algo.dnq.matricies.NaiveMultiplication" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="divide-n-conquer" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="StrassensMultiplication" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="org.mcvly.algo.dnq.matricies.StrassensMultiplication" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="divide-n-conquer" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -402,18 +469,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JUnit.InversionsTest.testLargeArray" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.InversionsTest.testWorstCase" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.InversionsTest.testNonTrivial" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.InversionsTest" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.InversionsTest.testAssignment" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.InversionsTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.InversionsTest.testAssignment" />
+      <item index="3" class="java.lang.String" itemvalue="Application.NaiveMultiplication" />
+      <item index="4" class="java.lang.String" itemvalue="Application.StrassensMultiplication" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.InversionsTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.InversionsTest.testAssignment" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.InversionsTest.testLargeArray" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.InversionsTest.testWorstCase" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.InversionsTest.testNonTrivial" />
+        <item index="0" class="java.lang.String" itemvalue="Application.StrassensMultiplication" />
+        <item index="1" class="java.lang.String" itemvalue="Application.NaiveMultiplication" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.InversionsTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.InversionsTest.testAssignment" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.InversionsTest.testLargeArray" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
@@ -452,7 +519,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276414" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -470,12 +537,12 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67022413" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -542,31 +609,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/java/org/mcvly/algo/dnq/inversions/InversionsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="29" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1850#1859#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/java/org/mcvly/algo/dnq/inversions/InversionsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="134" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1850#1859#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/merge/MergeSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="61" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/merge/MergeSort.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="1" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.0" />
@@ -607,25 +649,60 @@
         <state line="99999" column="5" selection-start="588894" selection-end="588894" vertical-scroll-proportion="0.9626784" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/inversions/CountingInversions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="207" selection-end="207" vertical-scroll-proportion="0.22392975">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/ant.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/inversions/CountingInversions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="115" selection-start="242" selection-end="242" vertical-scroll-proportion="0.24259056">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/test/java/org/mcvly/algo/dnq/inversions/InversionsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="65" selection-start="565" selection-end="565" vertical-scroll-proportion="0.5225027">
+        <state line="17" column="54" selection-start="319" selection-end="319" vertical-scroll-proportion="-0.32491767">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1850#1859#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/MatricesMultiplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="53" selection-start="182" selection-end="182" vertical-scroll-proportion="0.25415283">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/MatrixUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="44" selection-start="622" selection-end="622" vertical-scroll-proportion="0.52491695">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/NaiveMultiplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="37" selection-start="1464" selection-end="1464" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/divide-n-conquer/src/main/java/org/mcvly/algo/dnq/matricies/StrassensMultiplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="41" selection-start="2044" selection-end="2044" vertical-scroll-proportion="0.5883644">
+          <folding />
         </state>
       </provider>
     </entry>
