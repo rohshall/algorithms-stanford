@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/divide-n-conquer/src/main/divide-n-conquer.iml" filepath="$PROJECT_DIR$/divide-n-conquer/src/main/divide-n-conquer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/divide-n-conquer/divide-n-conquer.iml" filepath="$PROJECT_DIR$/divide-n-conquer/divide-n-conquer.iml" />
     </modules>
   </component>
 </project>
