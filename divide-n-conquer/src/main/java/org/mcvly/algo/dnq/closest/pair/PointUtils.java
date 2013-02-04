@@ -11,13 +11,29 @@ import java.util.List;
  * Time: 21:27
  */
 public abstract class PointUtils {
-    public static double euclidianDistacne(Point p, Point q) {
+    public static double euclideanDistance(Point p, Point q) {
+        if (p == null || q == null) {
+            throw new IllegalArgumentException("P can't be null");
+        }
         return Math.sqrt(Math.pow(p.getX()-q.getX(),2) + Math.pow(p.getY()-q.getY(),2));
     }
 
-    public static List<Point> sortByX(List<Point> points) {
-        List<Point> sortedPoints = cloneList(points);
-        Collections.sort(sortedPoints, new Comparator<Point>() {
+    public static double euclideanDistance(PointPair pointPair) {
+        if (pointPair == null || pointPair.getFirst() == null || pointPair.getSecond() == null) {
+            throw new IllegalArgumentException("Points can't be null");
+        }
+        return euclideanDistance(pointPair.getFirst(), pointPair.getSecond());
+    }
+
+
+    /**
+     *
+     * @param points list to be sorted
+     * @return sorted copy of list
+     */
+    public static List<? extends Point> sortByX(List<? extends Point> points) {
+        List<Point> cloneList = new ArrayList<Point>(points);
+        Collections.sort(cloneList, new Comparator<Point>() {
 
             @Override
             public int compare(Point o1, Point o2) {
@@ -30,12 +46,18 @@ public abstract class PointUtils {
                 }
             }
         });
-        return sortedPoints;
+
+        return cloneList;
     }
 
-    public static List<Point> sortByY(List<Point> points) {
-        List<Point> sortedPoints = cloneList(points);
-        Collections.sort(points, new Comparator<Point>() {
+    /**
+     *
+     * @param points list to be sorted
+     * @return sorted copy of list
+     */
+    public static List<? extends Point> sortByY(List<? extends Point> points) {
+        List<Point> cloneList = new ArrayList<Point>(points);
+        Collections.sort(cloneList, new Comparator<Point>() {
 
             @Override
             public int compare(Point o1, Point o2) {
@@ -48,32 +70,30 @@ public abstract class PointUtils {
                 }
             }
         });
-        return sortedPoints;
+        return cloneList;
     }
 
-    public static List<Point> cloneList(List<Point> originalList) {
-        List<Point> clonedList = new ArrayList<Point>(originalList.size());
-        for (Point p : originalList) {
-            clonedList.add(new Point(p));
-        }
-        return clonedList;
-    }
-
-    public static List<Point> getFirstHalfOfList(List<Point> originalList) {
+    public static List<? extends Point> getFirstHalfOfList(List<? extends Point> originalList) {
         int halfList = originalList.size()/2;
         return originalList.subList(0, halfList);
     }
 
-    public static List<Point> getSecondHalfOfList(List<Point> originalList) {
+    public static List<? extends Point> getSecondHalfOfList(List<? extends Point> originalList) {
         int halfList = originalList.size()/2;
         return originalList.subList(halfList, originalList.size());
     }
 
     public static PointPair leastDistance(PointPair p1, PointPair p2, PointPair p3) {
         double d1, d2, d3;
-        d1 = euclidianDistacne(p1.getFirst(), p2.getSecond());
-        d2 = euclidianDistacne(p2.getFirst(), p2.getSecond());
-        d3 = euclidianDistacne(p3.getFirst(), p3.getSecond());
+
+        d1 = euclideanDistance(p1);
+        d2 = euclideanDistance(p2);
+
+        if (p3 == null) {
+            d3 = Double.MAX_VALUE;
+        } else {
+            d3 = euclideanDistance(p3);
+        }
 
         if (d1 < d2 && d1 < d3) {
             return p1;
@@ -82,5 +102,38 @@ public abstract class PointUtils {
         } else {
             return p3;
         }
+    }
+
+    public static List<? extends Point> getPointsWithXWithinDelta(List<? extends Point> points, double xBar, double delta) {
+        List<Point> result = new ArrayList<Point>();
+        for (Point p : points) {
+            if (Math.abs(xBar - p.getX()) < delta) {
+                result.add(p);
+            }
+        }
+
+        return result;
+    }
+
+    public static PointPair bruteForce(List<? extends Point> points) {
+        int numPoints = points.size();
+        if (numPoints < 2)
+            return null;
+        PointPair pair = new PointPair(points.get(0), points.get(1));
+        if (numPoints > 2)
+        {
+            for (int i = 0; i < numPoints - 1; i++)
+            {
+                Point point1 = points.get(i);
+                for (int j = i + 1; j < numPoints; j++)
+                {
+                    Point point2 = points.get(j);
+                    double distance = euclideanDistance(point1, point2);
+                    if (distance < euclideanDistance(pair))
+                        pair = new PointPair(point1, point2);
+                }
+            }
+        }
+        return pair;
     }
 }
