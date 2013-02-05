@@ -58,7 +58,7 @@ public class InversionsTest {
 
     @Test
     public void testAssignment() throws IOException {
-        int[] array = fillArray("assignment.txt");
+        int[] array = fillArray("assignmentInversions.txt");
         Assert.assertEquals(100000, array.length);
         long inversions = countInversions(array);
         System.out.println("Answer is: " + inversions);
