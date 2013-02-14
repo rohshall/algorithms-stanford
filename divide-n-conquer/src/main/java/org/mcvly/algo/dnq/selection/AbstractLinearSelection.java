@@ -24,7 +24,7 @@ public abstract class AbstractLinearSelection {
             throw new IllegalArgumentException("wrong ordered statistic for given array");
         }
 
-        this.array = Arrays.copyOf(array, array.length);
+        this.array = array;
 
         return select(0, array.length-1, i-1);
     }

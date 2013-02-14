@@ -15,7 +15,6 @@ public class SelectionTest {
     @Test
     public void testEven() {
         int[] array = getArray(1000);
-
         AbstractLinearSelection linearSelection = new RandomizedSelect();
         int actual = linearSelection.getOrderedStatistic(array, 6);
         int expected = ReductionSelect.reductionSelect(array, 6);
@@ -32,7 +31,7 @@ public class SelectionTest {
         Assert.assertEquals(expected, actual);
     }
 
-    private int[] getArray(int n) {
+    public static int[] getArray(int n) {
         Random random = new Random();
         int[] array = new int[n];
         for (int i=0; i<n; i++) {
