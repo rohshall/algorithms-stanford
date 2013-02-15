@@ -1,7 +1,5 @@
 package org.mcvly.algo.dnq.selection;
 
-import java.util.Arrays;
-
 /**
  * User: Ruslan
  * Date: 12.02.13
@@ -12,7 +10,7 @@ public abstract class AbstractLinearSelection {
     protected int[] array;
 
     public int getOrderedStatistic(int[] array, int i) {
-        if (array.length == 0) {
+        if (array == null || array.length == 0) {
             throw new IllegalArgumentException("empty array");
         } else if (array.length == 1) {
             if (i != 1) {
@@ -34,7 +32,7 @@ public abstract class AbstractLinearSelection {
     protected int select(int low, int high, int i) {
         if (high < low) {
             throw new RuntimeException("Error in algorithm");
-        } else if (high-low == 0) {
+        } else if (high == low) {
             if (i != low) {
                 throw new RuntimeException("Error in algorithm");
             } else {
@@ -45,15 +43,15 @@ public abstract class AbstractLinearSelection {
         int pivotIndex = getPivotIndex(low, high);
         swap(low, pivotIndex);
         // puts pivot in its rightful position
-        int j = partitionAroundPivot(low, high);
+        int pInd = partitionAroundPivot(low, high);
         // if we guessed the "right" pivot element
-        if (j == i) {
-            return array[j];
+        if (pInd == i) {
+            return array[i];
         }
-        if (j > i) {
-            return select(low, j-1, i);
+        if (pInd > i) {
+            return select(low, pInd-1, i);
         } else {
-            return select(j+1, high, i);
+            return select(pInd+1, high, i-pInd);
         }
     }
 

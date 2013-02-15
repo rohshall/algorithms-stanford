@@ -11,20 +11,19 @@ import java.util.Random;
 public class RandomizedSelect extends AbstractLinearSelection {
     @Override
     protected int getPivotIndex(int low, int high) {
-        //Random r = new Random();
-        //return r.nextInt(high - low + 1) + low;
-//        return low + (int)(Math.random() * ((low - low) + 1));
+        Random r = new Random();
+        return r.nextInt(high - low + 1) + low;
         //use "median-of-three" pivot rule
-        int medianIndex = (low + high)/2;
-
-        int medianValue = medianOfThree(array[low], array[medianIndex], array[high]);
-        if (array[low] == medianValue) {
-            return low;
-        } else if (array[medianIndex] == medianValue) {
-            return medianIndex;
-        } else {
-            return high;
-        }
+//        int medianIndex = (low + high)/2;
+//
+//        int medianValue = medianOfThree(array[low], array[medianIndex], array[high]);
+//        if (array[low] == medianValue) {
+//            return low;
+//        } else if (array[medianIndex] == medianValue) {
+//            return medianIndex;
+//        } else {
+//            return high;
+//        }
     }
 
     private int medianOfThree(int a, int b, int c) {
