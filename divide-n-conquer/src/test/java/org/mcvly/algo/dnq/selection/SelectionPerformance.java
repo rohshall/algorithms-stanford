@@ -13,24 +13,21 @@ public class SelectionPerformance {
     @Test
     public void performanceTest() {
         AbstractLinearSelection randomSelection = new RandomizedSelect();
-//        AbstractLinearSelection determSelection = new RandomizedSelect();
 
-        int arraySize = 90000;
-
-        int[] array = new int[arraySize];
+        int[] array = SelectionTest.getArray(10000000);
 
         long startTime = System.currentTimeMillis();
         int random = randomSelection.getOrderedStatistic(array, array.length/2);
         long stopTime = System.currentTimeMillis();
         long randomSelectionTime = stopTime - startTime;
 
-//        startTime = System.currentTimeMillis();
-//        int determ = randomSelection.getOrderedStatistic(array, array.length/2);
-//        stopTime = System.currentTimeMillis();
-//        long deterSelectionTime = stopTime - startTime;
+        startTime = System.currentTimeMillis();
+        int reduced = ReductionSelect.reductionSelect(array, array.length/2);
+        stopTime = System.currentTimeMillis();
+        long reducedSelectionTime = stopTime - startTime;
 
-//        Assert.assertEquals(random, determ);
+        Assert.assertEquals(random, reduced);
         System.out.println("Randomized selection " + randomSelectionTime);
-       // System.out.println("Determined selection " + deterSelectionTime);
+        System.out.println("Reduced selection " + reducedSelectionTime);
     }
 }
