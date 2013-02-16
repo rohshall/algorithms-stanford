@@ -18,7 +18,7 @@ public abstract class AbstractLinearSelection {
             } else {
                 return array[0];
             }
-        } else if (i > array.length-1) {
+        } else if (i > array.length) {
             throw new IllegalArgumentException("wrong ordered statistic for given array");
         }
 
@@ -30,7 +30,7 @@ public abstract class AbstractLinearSelection {
     protected abstract int getPivotIndex(int low, int high);
 
     protected int select(int low, int high, int i) {
-        if (high < low) {
+        if (high < low || i > high) {
             throw new RuntimeException("Error in algorithm");
         } else if (high == low) {
             if (i != low) {
