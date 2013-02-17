@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.mcvly.algo.graph.cut.ContractionAlgorithm;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
