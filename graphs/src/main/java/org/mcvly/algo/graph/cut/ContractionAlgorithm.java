@@ -2,7 +2,7 @@ package org.mcvly.algo.graph.cut;
 
 import org.mcvly.algo.graph.Edge;
 import org.mcvly.algo.graph.Graph;
-import org.mcvly.algo.graph.SimpleVertex;
+import org.mcvly.algo.graph.Vertex;
 
 import java.util.*;
 
@@ -15,20 +15,20 @@ public class ContractionAlgorithm {
     private List<Edge<String>> edges;
     private Map<String, SuperNode> map;
 
-    public int findMinimumCutSize(Graph<SimpleVertex> graph) {
+    public int findMinimumCutSize(Graph<Vertex> graph) {
 
         map = new HashMap<String, SuperNode>();
         List<SuperNode> nodes = new ArrayList<SuperNode>(graph.getVertices().size());
         edges = new ArrayList<Edge<String>>(graph.getEdges().size());
 
-        for (SimpleVertex v : graph.getVertices()) {
+        for (Vertex v : graph.getVertices()) {
             SuperNode node = new SuperNode(v);
             map.put(v.getId(), node);
             nodes.add(node);
         }
 
 
-        for (Edge<SimpleVertex> edge : graph.getEdges()) {
+        for (Edge<Vertex> edge : graph.getEdges()) {
             edges.add(new Edge<String>(edge.getA().getId(), edge.getB().getId(), edge.getId()));
         }
 

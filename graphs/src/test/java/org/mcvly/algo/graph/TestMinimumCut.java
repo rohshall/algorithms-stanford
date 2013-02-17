@@ -2,9 +2,11 @@ package org.mcvly.algo.graph;
 
 import org.junit.Test;
 import org.mcvly.algo.graph.cut.ContractionAlgorithm;
+import org.mcvly.algo.graph.cut.KargerMinCutFast;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,7 +19,7 @@ public class TestMinimumCut {
     public void testCut() throws IOException {
         String filePath = TestReadGraph.class.getClassLoader().getResource("kargerMinCut.txt").getFile();
         GraphReader reader = new GraphReader();
-        Graph<SimpleVertex> g = reader.readFromFile(filePath);
+        Graph<Vertex> g = reader.readFromFile(filePath);
 
         ContractionAlgorithm algorithm = new ContractionAlgorithm();
 
@@ -25,6 +27,27 @@ public class TestMinimumCut {
         int[] arrayResults = new int[nTries];
         for (int i =0; i<nTries; i++) {
             arrayResults[i] = algorithm.findMinimumCutSize(g);
+        }
+
+        Map<Integer, Integer> results = new HashMap<Integer, Integer>();
+        for (int r : arrayResults) {
+            int rCount = results.get(r) == null ? 0 : results.get(r);
+            results.put(new Integer(r), rCount+1);
+        }
+        System.out.println(results);
+    }
+
+    @Test
+    public void testMinCut() throws IOException {
+        String filePath = TestReadGraph.class.getClassLoader().getResource("kargerMinCut.txt").getFile();
+        MapGraphReader reader = new MapGraphReader();
+        Map<Vertex, List<Vertex>> graph = reader.readGraph(filePath);
+
+        KargerMinCutFast algorithm = new KargerMinCutFast();
+        int nTries = (int) Math.pow(graph.size(), 2);
+        int[] arrayResults = new int[nTries];
+        for (int i =0; i<nTries; i++) {
+            arrayResults[i] = algorithm.findMinimumCutSize(graph);
         }
 
         Map<Integer, Integer> results = new HashMap<Integer, Integer>();

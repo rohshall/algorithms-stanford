@@ -4,10 +4,10 @@ package org.mcvly.algo.graph;
  * User: RMalyona
  * Date: 14.02.13
  */
-public class SimpleVertex {
+public class Vertex {
     private String id;
 
-    public SimpleVertex(String id) {
+    public Vertex(String id) {
         this.id = id;
     }
 
@@ -24,7 +24,7 @@ public class SimpleVertex {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SimpleVertex vertex = (SimpleVertex) o;
+        Vertex vertex = (Vertex) o;
 
         if (!id.equals(vertex.id)) return false;
 

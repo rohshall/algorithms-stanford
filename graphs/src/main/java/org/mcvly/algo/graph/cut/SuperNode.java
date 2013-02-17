@@ -1,6 +1,6 @@
 package org.mcvly.algo.graph.cut;
 
-import org.mcvly.algo.graph.SimpleVertex;
+import org.mcvly.algo.graph.Vertex;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,27 +11,27 @@ import java.util.List;
  */
 public class SuperNode {
 
-    private SimpleVertex originalVertex;
-    private List<SimpleVertex> absorbedVertices;
+    private Vertex originalVertex;
+    private List<Vertex> absorbedVertices;
 
-    public SuperNode(SimpleVertex vertex) {
+    public SuperNode(Vertex vertex) {
         this.originalVertex = vertex;
-        absorbedVertices = new LinkedList<SimpleVertex>();
+        absorbedVertices = new LinkedList<Vertex>();
     }
 
     public void absorbVertex(SuperNode v) {
 
         absorbedVertices.add(v.getOriginalVertex());
-        for (SimpleVertex o : v.getAbsorbedVertices()) {
+        for (Vertex o : v.getAbsorbedVertices()) {
             absorbedVertices.add(o);
         }
     }
 
-    public SimpleVertex getOriginalVertex() {
+    public Vertex getOriginalVertex() {
         return originalVertex;
     }
 
-    public List<SimpleVertex> getAbsorbedVertices() {
+    public List<Vertex> getAbsorbedVertices() {
         return absorbedVertices;
     }
 
@@ -63,7 +63,7 @@ public class SuperNode {
 //        b.append(originalVertex);
 //        if (absorbedVertices.size() > 0) {
 //            b.append(" [");
-//            for (SimpleVertex node : getAbsorbedVertices() ) {
+//            for (Vertex node : getAbsorbedVertices() ) {
 //                b.append(node);
 //                b.append(" ");
 //            }

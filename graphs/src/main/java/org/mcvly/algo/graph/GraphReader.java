@@ -9,15 +9,15 @@ import java.util.*;
  */
 public class GraphReader {
 
-    private Set<SimpleVertex> vertices;
-    private Set<Edge<SimpleVertex>> edges;
+    private Set<Vertex> vertices;
+    private Set<Edge<Vertex>> edges;
 
     public GraphReader() {
-        vertices = new HashSet<SimpleVertex>();
-        edges = new HashSet<Edge<SimpleVertex>>();
+        vertices = new HashSet<Vertex>();
+        edges = new HashSet<Edge<Vertex>>();
     }
 
-    public Graph<SimpleVertex> readFromFile(String fileName) throws IOException {
+    public Graph<Vertex> readFromFile(String fileName) throws IOException {
         InputStream is = new FileInputStream(fileName);
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
 
@@ -31,7 +31,7 @@ public class GraphReader {
         in.close();
         is.close();
 
-        return new Graph<SimpleVertex>(new ArrayList<SimpleVertex>(vertices), new ArrayList<Edge<SimpleVertex>>(edges));
+        return new Graph<Vertex>(new ArrayList<Vertex>(vertices), new ArrayList<Edge<Vertex>>(edges));
     }
 
     private void readGraphByLine(String line) {
@@ -39,19 +39,19 @@ public class GraphReader {
         if (tokens.length == 0) {
             return;
         }
-        SimpleVertex readVertex = new SimpleVertex(tokens[0]);
+        Vertex readVertex = new Vertex(tokens[0]);
         if (!vertices.contains(readVertex)) {
             vertices.add(readVertex);
         }
-        SimpleVertex nextVertex;
+        Vertex nextVertex;
         int edgeCount = 0;
         for (int i=1; i<tokens.length; i++) {
-            nextVertex = new SimpleVertex(tokens[i]);
+            nextVertex = new Vertex(tokens[i]);
             if (!vertices.contains(nextVertex)) {
                 vertices.add(nextVertex);
             }
 
-            Edge<SimpleVertex> edge = new Edge<SimpleVertex>(readVertex, nextVertex, String.valueOf(edgeCount));
+            Edge<Vertex> edge = new Edge<Vertex>(readVertex, nextVertex, String.valueOf(edgeCount));
 
             if (!edges.contains(edge)) {
                 edges.add(edge);
