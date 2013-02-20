@@ -19,4 +19,13 @@ public class TestReadGraph {
         Assert.assertEquals(5, g.getEdges().size());
         System.out.println(g.toString());
     }
+
+    @Test
+    public void testReadMapGraph() throws IOException {
+        String filePath = TestReadGraph.class.getClassLoader().getResource("scc/SCC.txt").getFile();
+        MapGraphReader reader = new MapGraphReader();
+        MapGraph g = reader.readGraph(filePath);
+        System.out.println(g.size());
+    }
+
 }

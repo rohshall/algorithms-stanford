@@ -12,14 +12,14 @@ import java.util.*;
  */
 public class ContractionAlgorithm {
 
-    private List<Edge<String>> edges;
+    private List<Edge> edges;
     private Map<String, SuperNode> map;
 
-    public int findMinimumCutSize(Graph<Vertex> graph) {
+    public int findMinimumCutSize(Graph<Vertex,Edge> graph) {
 
         map = new HashMap<String, SuperNode>();
         List<SuperNode> nodes = new ArrayList<SuperNode>(graph.getVertices().size());
-        edges = new ArrayList<Edge<String>>(graph.getEdges().size());
+        edges = new ArrayList<Edge>(graph.getEdges().size());
 
         for (Vertex v : graph.getVertices()) {
             SuperNode node = new SuperNode(v);
@@ -27,9 +27,8 @@ public class ContractionAlgorithm {
             nodes.add(node);
         }
 
-
-        for (Edge<Vertex> edge : graph.getEdges()) {
-            edges.add(new Edge<String>(edge.getA().getId(), edge.getB().getId(), edge.getId()));
+        for (Edge edge : graph.getEdges()) {
+            edges.add(new Edge(((Vertex)edge.getA()).getId(), ((Vertex)edge.getB()).getId(), edge.getId()));
         }
 
         //main algorithm
@@ -46,9 +45,9 @@ public class ContractionAlgorithm {
             }
 
             // replace vertexToAbsorb to superVertex in edges. also remove self-loop edges
-            Iterator<Edge<String>> i = edges.iterator();
+            Iterator<Edge> i = edges.iterator();
             while (i.hasNext()) {
-                Edge<String> edge = i.next(); // must be called before you can call i.remove()
+                Edge edge = i.next(); // must be called before you can call i.remove()
 
                 //remove self-loop
                 if (map.get(edge.getA()).isVertexSame(map.get(edge.getB()))) {
@@ -67,7 +66,7 @@ public class ContractionAlgorithm {
         return new HashSet<SuperNode>(map.values());
     }
 
-    public List<Edge<String>> getMinimumCutEdges() {
+    public List<Edge> getMinimumCutEdges() {
         return edges;
     }
 

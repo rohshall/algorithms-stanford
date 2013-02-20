@@ -17,9 +17,9 @@ public class TestMinimumCut {
 
     @Test
     public void testCut() throws IOException {
-        String filePath = TestReadGraph.class.getClassLoader().getResource("kargerMinCut.txt").getFile();
+        String filePath = TestReadGraph.class.getClassLoader().getResource("graph1.txt").getFile();
         GraphReader reader = new GraphReader();
-        Graph<Vertex> g = reader.readFromFile(filePath);
+        Graph<Vertex,Edge> g = reader.readFromFile(filePath);
 
         ContractionAlgorithm algorithm = new ContractionAlgorithm();
 
@@ -39,9 +39,9 @@ public class TestMinimumCut {
 
     @Test
     public void testMinCut() throws IOException {
-        String filePath = TestReadGraph.class.getClassLoader().getResource("kargerMinCut.txt").getFile();
+        String filePath = TestReadGraph.class.getClassLoader().getResource("graph1.txt").getFile();
         MapGraphReader reader = new MapGraphReader();
-        Map<Vertex, List<Vertex>> graph = reader.readGraph(filePath);
+        MapGraph graph = reader.readGraph(filePath);
 
         KargerMinCutFast algorithm = new KargerMinCutFast();
         int nTries = (int) Math.pow(graph.size(), 2);

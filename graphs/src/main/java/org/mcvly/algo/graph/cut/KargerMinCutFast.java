@@ -1,5 +1,6 @@
 package org.mcvly.algo.graph.cut;
 
+import org.mcvly.algo.graph.MapGraph;
 import org.mcvly.algo.graph.Vertex;
 
 import java.util.*;
@@ -10,33 +11,30 @@ import java.util.*;
  * Time: 13:44
  */
 public class KargerMinCutFast {
-    private Map<Vertex, List<Vertex>> graph;
+    private MapGraph graph;
     private Map<Vertex, Set<Vertex>> absorbedVertices;
 
-    public int findMinimumCutSize(Map<Vertex, List<Vertex>> data) {
+    public int findMinimumCutSize(MapGraph data) {
         if (data != null && data.size() > 0) {
-            this.graph = new HashMap<Vertex, List<Vertex>>(data.size());
-            for (Map.Entry<Vertex, List<Vertex>> entry: data.entrySet()) {
-                graph.put(new Vertex(entry.getKey().getId()), new LinkedList<Vertex>(entry.getValue()));
-            }
+            graph = new MapGraph(data);
         } else {
             throw new IllegalArgumentException("wrong graph!");
         }
 
         absorbedVertices = new HashMap<Vertex, Set<Vertex>>();
-        for (Vertex v : graph.keySet()) {
+        for (Vertex v : graph.getVertices()) {
             absorbedVertices.put(v, new HashSet<Vertex>());
         }
 
         //main algorithm
         while (graph.size() > 2) {
             Vertex superVertex = getNextVertex();
-            if (graph.get(superVertex).size() == 0) {
+            if (graph.getAdjacentVertices(superVertex).size() == 0) {
                 break;
             }
-            Vertex vertexToAbsorb = graph.get(superVertex).get(0);
+            Vertex vertexToAbsorb = graph.getAdjacentVertices(superVertex).get(0);
 
-            if (graph.get(vertexToAbsorb) == null) {
+            if (graph.getAdjacentVertices(vertexToAbsorb) == null) {
                 break;
             }
 
@@ -45,7 +43,7 @@ public class KargerMinCutFast {
             absorbedVertices.get(superVertex).addAll(absorbedVertices.get(vertexToAbsorb));
 
             // put edges of absorbedVertex to superVertex
-            graph.get(superVertex).addAll(graph.get(vertexToAbsorb));
+            graph.getAdjacentVertices(superVertex).addAll(graph.getAdjacentVertices(vertexToAbsorb));
 
             // replace absorbedVertex to superVertex in edges, also remove self-loops
             for (Map.Entry<Vertex, List<Vertex>> entry: graph.entrySet()) {
@@ -61,19 +59,19 @@ public class KargerMinCutFast {
                     }
                 }
             }
-            graph.remove(vertexToAbsorb);
+            graph.removeVertex(vertexToAbsorb);
         }
 
         int edgesLeft = 0;
-        for (List<Vertex> list : graph.values()) {
-            edgesLeft += list.size();
+        for (Vertex v : graph.getVertices()) {
+            edgesLeft += graph.getAdjacentVertices(v).size();
             break;
         }
         return edgesLeft;
     }
 
     private Vertex getNextVertex() {
-        List<Vertex> keyList = new ArrayList<Vertex>(graph.keySet());
+        List<Vertex> keyList = new ArrayList<Vertex>(graph.getVertices());
         int randomIndex = new Random().nextInt(keyList.size());
         return keyList.get(randomIndex);
     }

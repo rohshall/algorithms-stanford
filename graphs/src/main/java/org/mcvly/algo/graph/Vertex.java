@@ -1,14 +1,19 @@
 package org.mcvly.algo.graph;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * User: RMalyona
  * Date: 14.02.13
  */
 public class Vertex {
     private String id;
+    Map<String, Object> attributes;
 
     public Vertex(String id) {
         this.id = id;
+        attributes = new HashMap<String, Object>();
     }
 
     public String getId() {
@@ -17,6 +22,14 @@ public class Vertex {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setAttribute(String attribute, Object value) {
+        attributes.put(attribute, value);
+    }
+
+    public Object getAttribute(String attributeName) {
+        return attributes.get(attributeName);
     }
 
     @Override

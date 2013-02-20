@@ -6,38 +6,38 @@ import java.util.List;
  * User: RMalyona
  * Date: 14.02.13
  */
-public class Graph<T> {
-    private List<T> vertices;
-    private List<Edge<T>> edges;
+public class Graph<V,E> {
+    private List<V> vertices;
+    private List<E> edges;
 
     public Graph() {}
 
-    public Graph(List<T> vertices, List<Edge<T>> edges) {
+    public Graph(List<V> vertices, List<E> edges) {
         this.edges = edges;
         this.vertices = vertices;
     }
 
-    public List<T> getVertices() {
+    public List<V> getVertices() {
         return vertices;
     }
 
-    public void setVertices(List<T> vertices) {
+    public void setVertices(List<V> vertices) {
         this.vertices = vertices;
     }
 
-    public List<Edge<T>> getEdges() {
+    public List<E> getEdges() {
         return edges;
     }
 
-    public void setEdges(List<Edge<T>> edges) {
+    public void setEdges(List<E> edges) {
         this.edges = edges;
     }
 
-    public void addVertex(T v) {
+    public void addVertex(V v) {
         vertices.add(v);
     }
 
-    public void addEdge(Edge e) {
+    public void addEdge(E e) {
         edges.add(e);
     }
 
@@ -45,12 +45,12 @@ public class Graph<T> {
     public String toString() {
         StringBuilder b = new StringBuilder();
         b.append("Vertices: \n");
-        for (T v : vertices) {
+        for (V v : vertices) {
             b.append(v);
             b.append(" ");
         }
         b.append("\nEdges: \n");
-        for (Edge e : edges) {
+        for (E e : edges) {
             b.append(e);
             b.append(" ");
         }

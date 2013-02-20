@@ -10,14 +10,14 @@ import java.util.*;
 public class GraphReader {
 
     private Set<Vertex> vertices;
-    private Set<Edge<Vertex>> edges;
+    private Set<Edge> edges;
 
     public GraphReader() {
         vertices = new HashSet<Vertex>();
-        edges = new HashSet<Edge<Vertex>>();
+        edges = new HashSet<Edge>();
     }
 
-    public Graph<Vertex> readFromFile(String fileName) throws IOException {
+    public Graph<Vertex,Edge> readFromFile(String fileName) throws IOException {
         InputStream is = new FileInputStream(fileName);
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
 
@@ -31,7 +31,7 @@ public class GraphReader {
         in.close();
         is.close();
 
-        return new Graph<Vertex>(new ArrayList<Vertex>(vertices), new ArrayList<Edge<Vertex>>(edges));
+        return new Graph<Vertex,Edge>(new ArrayList<Vertex>(vertices), new ArrayList<Edge>(edges));
     }
 
     private void readGraphByLine(String line) {
@@ -51,7 +51,7 @@ public class GraphReader {
                 vertices.add(nextVertex);
             }
 
-            Edge<Vertex> edge = new Edge<Vertex>(readVertex, nextVertex, String.valueOf(edgeCount));
+            Edge edge = new Edge(readVertex, nextVertex, String.valueOf(edgeCount));
 
             if (!edges.contains(edge)) {
                 edges.add(edge);

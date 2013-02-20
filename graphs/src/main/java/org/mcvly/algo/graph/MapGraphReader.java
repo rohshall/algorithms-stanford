@@ -11,10 +11,17 @@ import java.util.*;
 public class MapGraphReader {
 
     private Map<Vertex, List<Vertex>> graph;
+    private Map<Vertex, List<Vertex>> reversedGraph;
 
-    public Map<Vertex, List<Vertex>> readGraph(String fileName) throws IOException {
+    private VerticesPool verticesPool;
+
+    public MapGraph readGraph(String fileName) throws IOException {
 
         graph = new HashMap<Vertex, List<Vertex>>();
+        reversedGraph = new HashMap<Vertex, List<Vertex>>();
+
+        verticesPool = new VerticesPool();
+
         InputStream is = new FileInputStream(fileName);
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
 
@@ -28,7 +35,7 @@ public class MapGraphReader {
         in.close();
         is.close();
 
-        return graph;
+        return new MapGraph(graph);
     }
 
     private void readGraphByLine(String line) {
@@ -36,22 +43,43 @@ public class MapGraphReader {
         if (tokens.length == 0) {
             return;
         }
-        Vertex readVertex = new Vertex(tokens[0]);
+
+        Vertex readVertex = verticesPool.add(tokens[0]);
+        if (graph.get(readVertex) == null) {
+            graph.put(readVertex, new LinkedList<Vertex>());
+        }
 
         List<Vertex> edgedVertices = new LinkedList<Vertex>();
 
         for (int i=1; i<tokens.length; i++) {
-            edgedVertices.add(new Vertex(tokens[i]));
+            Vertex v = verticesPool.add(tokens[i]);
+            if (graph.get(v) == null) {
+                graph.put(v, new LinkedList<Vertex>());
+            }
+
+            edgedVertices.add(v);
         }
-//        Map<Vertex, List<Vertex>> graph = new HashMap<Vertex, List<Vertex>>();
-//        Graph<Vertex> originalGraph = new GraphReader().readFromFile(fileName);
-//        for (Vertex v : originalGraph.getVertices()) {
-//            graph.put(v, new LinkedList<Vertex>());
-//        }
-//        for (Edge<Vertex> element : originalGraph.getEdges()) {
-//            graph.get(element.getA()).add(element.getB());
-//        }
-//        return graph;
-        graph.put(readVertex, edgedVertices);
+
+        graph.get(readVertex).addAll(edgedVertices);
+    }
+
+    private static class VerticesPool {
+        private Map<String, Vertex> vertices;
+
+        public VerticesPool() {
+            this.vertices = new HashMap<String, Vertex>();
+        }
+
+        public Vertex add(String id) {
+
+            Vertex x;
+            if (!vertices.containsKey(id)) {
+                x = new Vertex(id);
+                vertices.put(id, x);
+            } else {
+                x = vertices.get(id);
+            }
+            return x;
+        }
     }
 }

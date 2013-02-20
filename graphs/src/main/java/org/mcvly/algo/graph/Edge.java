@@ -4,16 +4,16 @@ package org.mcvly.algo.graph;
  * User: RMalyona
  * Date: 14.02.13
  */
-public class Edge<T> {
+public class Edge {
     private String id;
-    private T a;
-    private T b;
+    private Object a;
+    private Object b;
 
     public Edge(String id) {
         this.id = id;
     }
 
-    public Edge(T a, T b, String id) {
+    public Edge(Object a, Object b, String id) {
         this.a = a;
         this.b = b;
         this.id = id;
@@ -27,19 +27,19 @@ public class Edge<T> {
         this.id = id;
     }
 
-    public T getA() {
+    public Object getA() {
         return a;
     }
 
-    public void setA(T a) {
+    public void setA(Object a) {
         this.a = a;
     }
 
-    public T getB() {
+    public Object getB() {
         return b;
     }
 
-    public void setB(T b) {
+    public void setB(Object b) {
         this.b = b;
     }
 
