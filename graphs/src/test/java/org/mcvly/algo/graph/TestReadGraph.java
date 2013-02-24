@@ -21,11 +21,23 @@ public class TestReadGraph {
     }
 
     @Test
-    public void testReadMapGraph() throws IOException {
+    public void testReadMapGraph() throws IOException, InterruptedException {
         String filePath = TestReadGraph.class.getClassLoader().getResource("scc/SCC.txt").getFile();
         MapGraphReader reader = new MapGraphReader();
+        long start = System.currentTimeMillis();
+
         MapGraph g = reader.readGraph(filePath);
-        System.out.println(g.size());
+        Assert.assertEquals(875714, g.size());
+
+        long finished = System.currentTimeMillis();
+        System.out.println((finished-start));
+        start = System.currentTimeMillis();
+        System.gc();
+        Thread.sleep(3000);
+        MapGraph reversedGraph = g.getReversedGraph();
+        finished = System.currentTimeMillis();
+        System.out.println((finished-start));
+        Assert.assertEquals(875714, reversedGraph.size());
     }
 
 }

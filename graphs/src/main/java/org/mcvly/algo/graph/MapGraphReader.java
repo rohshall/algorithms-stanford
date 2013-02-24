@@ -3,6 +3,8 @@ package org.mcvly.algo.graph;
 import java.io.*;
 import java.util.*;
 
+import static org.mcvly.algo.graph.MapGraph.concat;
+
 /**
  * User: Ruslan
  * Date: 17.02.13
@@ -10,15 +12,13 @@ import java.util.*;
  */
 public class MapGraphReader {
 
-    private Map<Vertex, List<Vertex>> graph;
-    private Map<Vertex, List<Vertex>> reversedGraph;
+    private Map<Vertex, Vertex[]> graph;
 
     private VerticesPool verticesPool;
 
     public MapGraph readGraph(String fileName) throws IOException {
 
-        graph = new HashMap<Vertex, List<Vertex>>();
-        reversedGraph = new HashMap<Vertex, List<Vertex>>();
+        graph = new HashMap<Vertex, Vertex[]>();
 
         verticesPool = new VerticesPool();
 
@@ -34,40 +34,44 @@ public class MapGraphReader {
 
         in.close();
         is.close();
-
+        verticesPool.clear();
+        verticesPool = null;
         return new MapGraph(graph);
     }
 
     private void readGraphByLine(String line) {
-        String[] tokens = line.split("\\s+");
+           String[] tokens = line.split("\\s+");
         if (tokens.length == 0) {
             return;
         }
 
         Vertex readVertex = verticesPool.add(tokens[0]);
-        if (graph.get(readVertex) == null) {
-            graph.put(readVertex, new LinkedList<Vertex>());
-        }
 
-        List<Vertex> edgedVertices = new LinkedList<Vertex>();
-
+        Vertex[] edgedVertices = new Vertex[tokens.length-1];
         for (int i=1; i<tokens.length; i++) {
             Vertex v = verticesPool.add(tokens[i]);
-            if (graph.get(v) == null) {
-                graph.put(v, new LinkedList<Vertex>());
+            if (!graph.containsKey(v)) {
+                graph.put(v,null);
             }
-
-            edgedVertices.add(v);
+            edgedVertices[i-1] = v;
         }
 
-        graph.get(readVertex).addAll(edgedVertices);
+        graph.put(readVertex, concat(graph.get(readVertex), edgedVertices));
     }
 
     private static class VerticesPool {
         private Map<String, Vertex> vertices;
 
         public VerticesPool() {
-            this.vertices = new HashMap<String, Vertex>();
+            this.vertices = new WeakHashMap<String, Vertex>();
+        }
+
+        public void clear() {
+            vertices.clear();
+        }
+
+        public int size() {
+            return vertices.size();
         }
 
         public Vertex add(String id) {

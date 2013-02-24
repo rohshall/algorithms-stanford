@@ -1,8 +1,12 @@
 package org.mcvly.algo.graph.scc;
 
+import org.mcvly.algo.dnq.selection.AbstractLinearSelection;
+import org.mcvly.algo.dnq.selection.RandomizedSelect;
 import org.mcvly.algo.graph.MapGraph;
+import org.mcvly.algo.graph.MapGraphReader;
 import org.mcvly.algo.graph.Vertex;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -12,11 +16,9 @@ import java.util.*;
 public class KosarajuAlgorithm {
     private MapGraph graph;
     private MapGraph reversedGraph;
-    private Map<Vertex, Vertex> leaders;
+    private Map<Vertex, List<Vertex>> sccs;
     private Vertex[] finishingTime;
     private boolean firstIteration = false;
-
-    Map<Vertex,List<Vertex>> sccs;
 
     /**
      * number of nodes processed so far
@@ -28,24 +30,17 @@ public class KosarajuAlgorithm {
      */
     private Vertex s = null;
 
-    //TODO optimize this later
-    public String computeSCC(MapGraph graph) {
-        this.graph = graph;
+    public String computeSCC(MapGraph g) {
+        this.graph = g;
         this.reversedGraph = graph.getReversedGraph();
-        leaders = new HashMap<Vertex, Vertex>();
-        finishingTime = new Vertex[graph.size()];
+        sccs = new HashMap<Vertex, List<Vertex>>();
+        finishingTime = new Vertex[reversedGraph.size()];
 
         firstDFSLoop(reversedGraph);
         clearMarks();
         secondDFSLoop(graph);
 
-        sccs = new HashMap<Vertex, List<Vertex>>();
-        fillSCCs();
-        ValueComparator bvc =  new ValueComparator(sccs);
-        TreeMap<Vertex,List<Vertex>> sorted_map = new TreeMap<Vertex,List<Vertex>>(bvc);
-        sorted_map.putAll(sccs);
-
-        return getFiveBiggestSCC(sorted_map);
+        return getFiveBiggestSCC();
     }
 
     /**
@@ -55,8 +50,8 @@ public class KosarajuAlgorithm {
     private void firstDFSLoop(MapGraph g) {
         firstIteration = true;
         t = 0;
-        for (Vertex w : reversedGraph.keySet()) {
-            if (w.getAttribute("explored") == null || Boolean.valueOf(w.getAttribute("explored").toString()) == Boolean.FALSE) {
+        for (Vertex w : g.keySet()) {
+            if (!w.isVisited()) {
                 dfs(g, w);
             }
         }
@@ -67,7 +62,7 @@ public class KosarajuAlgorithm {
         s = null;
         for (int i=finishingTime.length-1; i>-1; --i) {
             Vertex w = finishingTime[i];
-            if (w.getAttribute("explored") == null || Boolean.valueOf(w.getAttribute("explored").toString()) == Boolean.FALSE) {
+            if (!w.isVisited()) {
                 s = w;
                 dfs(g, s);
             }
@@ -75,13 +70,18 @@ public class KosarajuAlgorithm {
     }
 
     private void dfs(MapGraph g, Vertex w) {
-        w.setAttribute("explored", true);
+        w.setVisited(true);
         if (!firstIteration) {
-            leaders.put(w,s);
+            if (sccs.get(s) == null) {
+                sccs.put(s, new LinkedList<Vertex>());
+            }
+            sccs.get(s).add(w);
         }
-        for (Vertex v : g.getAdjacentVertices(w)) {
-            if (v.getAttribute("explored") == null || Boolean.valueOf(v.getAttribute("explored").toString()) == Boolean.FALSE) {
-                dfs(g,v);
+        if (g.getAdjacentVertices(w) != null) {
+            for (Vertex v : g.getAdjacentVertices(w)) {
+                if (!v.isVisited()) {
+                    dfs(g,v);
+                }
             }
         }
         if (firstIteration) {
@@ -92,54 +92,36 @@ public class KosarajuAlgorithm {
 
     private void clearMarks() {
         for (int i=0; i<finishingTime.length; i++) {
-            finishingTime[i].setAttribute("explored", false);
+            finishingTime[i].setVisited(false);
         }
     }
 
-    private void fillSCCs() {
-        for (Map.Entry<Vertex,Vertex> entry : leaders.entrySet()) {
-            if (!sccs.containsKey(entry.getValue())) {
-                sccs.put(entry.getValue(), new ArrayList<Vertex>());
-            }
-            sccs.get(entry.getValue()).add(entry.getKey());
-        }
-    }
-
-    private class ValueComparator implements Comparator<Vertex> {
-
-        Map<Vertex, List<Vertex>> base;
-        public ValueComparator(Map<Vertex, List<Vertex>> base) {
-            this.base = base;
+    private String getFiveBiggestSCC() {
+        int[] sccSizes = new int[sccs.size()];
+        int i = 0;
+        for (List<Vertex> list : sccs.values()) {
+            sccSizes[i++] = list.size();
         }
 
-        // Note: this comparator imposes orderings that are inconsistent with equals.
-        public int compare(Vertex a, Vertex b) {
-            if (base.get(a).size() >= base.get(b).size()) {
-                return -1;
-            } else {
-                return 1;
-            } // returning 0 would merge keys
-        }
-    }
-
-    private String getFiveBiggestSCC(TreeMap<Vertex, List<Vertex>> sorted_map) {
-        int i=0;
         StringBuilder b = new StringBuilder();
-        for (Map.Entry<Vertex, List<Vertex>> entry : sorted_map.entrySet()) {
-            if (i == 5) {
-                break;
-            }
-            b.append(entry.getValue().size());
-            b.append(",");
-            i++;
-        }
-        if (i<5) {
-            while(i<5) {
-                b.append("0,");
-                i++;
-            }
-        }
-        b.deleteCharAt(b.length()-1);
+        AbstractLinearSelection selection = new RandomizedSelect();
+        b.append(selection.getOrderedStatistic(sccSizes, sccSizes.length)).append(",");
+        b.append(selection.getOrderedStatistic(sccSizes, sccSizes.length-1)).append(",");
+        b.append(selection.getOrderedStatistic(sccSizes, sccSizes.length-2)).append(",");
+        b.append(selection.getOrderedStatistic(sccSizes, sccSizes.length-3)).append(",");
+        b.append(selection.getOrderedStatistic(sccSizes, sccSizes.length-4));
         return b.toString();
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String filePath = KosarajuAlgorithm.class.getResource("SCC.txt").getFile();
+        MapGraphReader reader = new MapGraphReader();
+        MapGraph g = reader.readGraph(filePath);
+
+        long start = System.currentTimeMillis();
+        KosarajuAlgorithm algorithm = new KosarajuAlgorithm();
+        System.out.println(algorithm.computeSCC(g));
+        long finished = System.currentTimeMillis();
+        System.out.println((finished-start));
     }
 }

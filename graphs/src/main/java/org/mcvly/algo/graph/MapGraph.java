@@ -7,28 +7,32 @@ import java.util.*;
  * Date: 19.02.13
  */
 public class MapGraph {
-    private Map<Vertex, List<Vertex>> graph;
+    private Map<Vertex, Vertex[]> graph;
 
-    public MapGraph(Map<Vertex, List<Vertex>> graph) {
+    public MapGraph(Map<Vertex, Vertex[]> graph) {
         this.graph = graph;
     }
 
     public MapGraph(MapGraph data) {
-        this.graph = new HashMap<Vertex, List<Vertex>>(data.size());
-        for (Map.Entry<Vertex, List<Vertex>> entry: data.entrySet()) {
-            graph.put(new Vertex(entry.getKey().getId()), new LinkedList<Vertex>(entry.getValue()));
+        this.graph = new HashMap<Vertex, Vertex[]>(data.size());
+        for (Map.Entry<Vertex, Vertex[]> entry: data.entrySet()) {
+            graph.put(new Vertex(entry.getKey().getId()), entry.getValue());
         }
     }
 
-    public List<Vertex> getAdjacentVertices(Vertex v) {
+    public Vertex[] getAdjacentVertices(Vertex v) {
         return graph.get(v);
+    }
+
+    public void setAdjacentVertices(Vertex v, Vertex[] array) {
+        graph.put(v, array);
     }
 
     public int size() {
         return graph.size();
     }
 
-    public Set<Map.Entry<Vertex, List<Vertex>>> entrySet() {
+    public Set<Map.Entry<Vertex, Vertex[]>> entrySet() {
         return graph.entrySet();
     }
 
@@ -45,18 +49,17 @@ public class MapGraph {
     }
 
     public MapGraph getReversedGraph() {
-        Map<Vertex, List<Vertex>> reversedGraph = new HashMap<Vertex, List<Vertex>>(graph.size());
+        Map<Vertex, Vertex[]> reversedGraph = new HashMap<Vertex, Vertex[]>();
 
-        for (Map.Entry<Vertex,List<Vertex>> entry : graph.entrySet()) {
+        for (Map.Entry<Vertex,Vertex[]> entry : graph.entrySet()) {
             if (!reversedGraph.containsKey(entry.getKey())) {
-                reversedGraph.put(entry.getKey(), new LinkedList<Vertex>());
+                reversedGraph.put(entry.getKey(), null);
             }
 
-            for (Vertex v : entry.getValue()) {
-                if (!reversedGraph.containsKey(v)) {
-                    reversedGraph.put(v, new LinkedList<Vertex>());
+            if (entry.getValue() != null) {
+                for (Vertex v : entry.getValue()) {
+                    reversedGraph.put(v, concat(reversedGraph.get(v),entry.getKey()));
                 }
-                reversedGraph.get(v).add(entry.getKey());
             }
         }
 
@@ -70,5 +73,30 @@ public class MapGraph {
             }
         }
         return null;
+    }
+
+    public static <T> T[] concat(T[] first, T[] second) {
+        T[] result = null;
+        if (first != null && second != null) {
+            result = Arrays.copyOf(first, first.length + second.length);
+            System.arraycopy(second, 0, result, first.length, second.length);
+            first = null;
+            second = null;
+        } else if (first == null && second != null) {
+            result = second;
+        } else if (first != null) {
+            result = first;
+        }
+        return result;
+    }
+
+    public static Vertex[] concat(Vertex[] org, Vertex added) {
+        if (org == null || org.length == 0) {
+            return new Vertex[] {added};
+        }
+        Vertex[] result = Arrays.copyOf(org, org.length +1);
+        result[org.length] = added;
+        org = null;
+        return result;
     }
 }

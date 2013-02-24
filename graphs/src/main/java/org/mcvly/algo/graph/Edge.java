@@ -5,26 +5,12 @@ package org.mcvly.algo.graph;
  * Date: 14.02.13
  */
 public class Edge {
-    private String id;
     private Object a;
     private Object b;
 
-    public Edge(String id) {
-        this.id = id;
-    }
-
-    public Edge(Object a, Object b, String id) {
+    public Edge(Object a, Object b) {
         this.a = a;
         this.b = b;
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Object getA() {
@@ -53,14 +39,13 @@ public class Edge {
         // edge.a == edge.b && edge.b == edge.a are equal
         if (!a.equals(edge.a) && !a.equals(edge.b)) return false;
         if (!b.equals(edge.b) && !b.equals(edge.a)) return false;
-        if (!id.equals(edge.id)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = 1;
         result = 31 * result + a.hashCode() + + b.hashCode();
         return result;
     }

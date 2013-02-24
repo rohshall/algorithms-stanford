@@ -28,7 +28,7 @@ public class ContractionAlgorithm {
         }
 
         for (Edge edge : graph.getEdges()) {
-            edges.add(new Edge(((Vertex)edge.getA()).getId(), ((Vertex)edge.getB()).getId(), edge.getId()));
+            edges.add(new Edge(((Vertex)edge.getA()).getId(), ((Vertex)edge.getB()).getId()));
         }
 
         //main algorithm
