@@ -18,8 +18,8 @@ public abstract class AbstractLinearSelection {
             } else {
                 return array[0];
             }
-        } else if (i > array.length) {
-            throw new IllegalArgumentException("wrong ordered statistic for given array");
+        } else if (i > array.length || i < 1) {
+            return 0;
         }
 
         this.array = array;

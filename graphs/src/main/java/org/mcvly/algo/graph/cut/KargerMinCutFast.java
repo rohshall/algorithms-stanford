@@ -29,10 +29,10 @@ public class KargerMinCutFast {
         //main algorithm
         while (graph.size() > 2) {
             Vertex superVertex = getNextVertex();
-            if (graph.getAdjacentVertices(superVertex).size() == 0) {
+            if (graph.getAdjacentVertices(superVertex).length == 0) {
                 break;
             }
-            Vertex vertexToAbsorb = graph.getAdjacentVertices(superVertex).get(0);
+            Vertex vertexToAbsorb = graph.getAdjacentVertices(superVertex)[0];
 
             if (graph.getAdjacentVertices(vertexToAbsorb) == null) {
                 break;
@@ -43,11 +43,14 @@ public class KargerMinCutFast {
             absorbedVertices.get(superVertex).addAll(absorbedVertices.get(vertexToAbsorb));
 
             // put edges of absorbedVertex to superVertex
-            graph.getAdjacentVertices(superVertex).addAll(graph.getAdjacentVertices(vertexToAbsorb));
+            List<Vertex> list1 = Arrays.asList(graph.getAdjacentVertices(superVertex));
+            list1.addAll(Arrays.asList(graph.getAdjacentVertices(vertexToAbsorb)));
+            graph.setAdjacentVertices(superVertex, list1.toArray(new Vertex[0]));
 
             // replace absorbedVertex to superVertex in edges, also remove self-loops
-            for (Map.Entry<Vertex, List<Vertex>> entry: graph.entrySet()) {
-                ListIterator<Vertex> i = entry.getValue().listIterator();
+            for (Map.Entry<Vertex, Vertex[]> entry: graph.entrySet()) {
+                List<Vertex> list = new LinkedList<Vertex>(Arrays.asList(entry.getValue()));
+                ListIterator<Vertex> i = list.listIterator();
                 while (i.hasNext()) {
                     Vertex v = i.next();
                     if (vertexToAbsorb.equals(v) && superVertex.equals(entry.getKey())) {
@@ -58,13 +61,14 @@ public class KargerMinCutFast {
                         i.remove();
                     }
                 }
+                entry.setValue(list.toArray(new Vertex[0]));
             }
             graph.removeVertex(vertexToAbsorb);
         }
 
         int edgesLeft = 0;
         for (Vertex v : graph.getVertices()) {
-            edgesLeft += graph.getAdjacentVertices(v).size();
+            edgesLeft += graph.getAdjacentVertices(v).length;
             break;
         }
         return edgesLeft;

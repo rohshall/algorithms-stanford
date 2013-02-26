@@ -88,6 +88,6 @@ public class TestSCC {
         MapGraph g = reader.readGraph(filePath);
 
         KosarajuAlgorithm algorithm = new KosarajuAlgorithm();
-        System.out.println(algorithm.computeSCC(g));
+        Assert.assertEquals("434821,968,459,313,211", algorithm.computeSCC(g));
     }
 }

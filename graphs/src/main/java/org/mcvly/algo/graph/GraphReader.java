@@ -44,14 +44,13 @@ public class GraphReader {
             vertices.add(readVertex);
         }
         Vertex nextVertex;
-        int edgeCount = 0;
         for (int i=1; i<tokens.length; i++) {
             nextVertex = new Vertex(tokens[i]);
             if (!vertices.contains(nextVertex)) {
                 vertices.add(nextVertex);
             }
 
-            Edge edge = new Edge(readVertex, nextVertex, String.valueOf(edgeCount));
+            Edge edge = new Edge(readVertex, nextVertex);
 
             if (!edges.contains(edge)) {
                 edges.add(edge);

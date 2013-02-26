@@ -9,11 +9,10 @@ import java.util.Map;
  */
 public class Vertex {
     private String id;
-    Map<String, Object> attributes;
+    private boolean visited;
 
     public Vertex(String id) {
         this.id = id;
-        attributes = new HashMap<String, Object>();
     }
 
     public String getId() {
@@ -24,12 +23,12 @@ public class Vertex {
         this.id = id;
     }
 
-    public void setAttribute(String attribute, Object value) {
-        attributes.put(attribute, value);
+    public boolean isVisited() {
+        return visited;
     }
 
-    public Object getAttribute(String attributeName) {
-        return attributes.get(attributeName);
+    public void setVisited(boolean isVisited) {
+        this.visited = isVisited;
     }
 
     @Override
