@@ -32,7 +32,7 @@ public class KosarajuAlgorithm {
     public String computeSCC(MapGraph graph) {
         this.graph = graph;
         this.reversedGraph = graph.getReversedGraph();
-        leaders = new HashMap<Vertex, Vertex>();
+        leaders = new HashMap<Vertex, Vertex>(graph.size());
         finishingTime = new Vertex[graph.size()];
 
         firstDFSLoop(reversedGraph);
