@@ -43,22 +43,37 @@ public class Reader {
     }
 
     private void readGraphByLine(String line) {
-        String[] tokens = line.split("\\s+");
-        if (tokens.length == 0) {
-            return;
+
+        int i = 0, start=0;
+        char[] array = line.toCharArray();
+        while (Character.isDigit(array[i])) {
+            i++;
+        }
+        start = i;
+        Vertex source = new Vertex(line.substring(0, i));
+        List<Edge> adjacents = new ArrayList<Edge>();
+        boolean isSource = true;
+        Vertex target = null;
+        for (;i<array.length; i++) {
+            if (isSource) {
+                if (array[i] == ',') {
+                    isSource = false;
+                    target = new Vertex(line.substring(start, i));
+                    start=i+1;
+                } else if (array[i]==' ' || array[i]=='\t') {
+                    start++;
+                }
+            } else {
+                if (array[i]==' ' || array[i]=='\t') {
+                    double weight = Double.parseDouble(line.substring(start, i));
+                    isSource = true;
+                    adjacents.add(new Edge(target,weight));
+                    start = i+1;
+                }
+            }
         }
 
-        Edge[] adjacents = new Edge[tokens.length-1];
-        for (int i=1; i<tokens.length; i++) {
-            String[] tuple = tokens[i].split(",");
-            Vertex target = verticesPool.add(tuple[0]);
-            double weight = Double.parseDouble(tuple[1]);
-            Edge e = new Edge(target, weight);
-            adjacents[i-1] = e;
-        }
-
-        Vertex source = verticesPool.add(tokens[0]);
-        source.setAdjacents(adjacents);
+        source.setAdjacents(adjacents.toArray(new Edge[0]));
         vertices.add(source);
     }
 

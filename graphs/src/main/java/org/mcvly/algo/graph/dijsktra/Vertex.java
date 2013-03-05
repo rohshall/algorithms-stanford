@@ -4,10 +4,9 @@ package org.mcvly.algo.graph.dijsktra;
  * User: RMalyona
  * Date: 26.02.13
  */
-public class Vertex implements Comparable<Vertex> {
+public class Vertex {
     private Edge[] adjacents;
     private Vertex previous;
-    private double minDistance = Double.POSITIVE_INFINITY;
     private String name;
 
     public Vertex(String name) {
@@ -27,14 +26,6 @@ public class Vertex implements Comparable<Vertex> {
         this.adjacents = e;
     }
 
-    public double getMinDistance() {
-        return minDistance;
-    }
-
-    public void setMinDistance(double minDistance) {
-        this.minDistance = minDistance;
-    }
-
     public String getName() {
         return name;
     }
@@ -45,11 +36,6 @@ public class Vertex implements Comparable<Vertex> {
 
     public void setPrevious(Vertex v) {
         this.previous = v;
-    }
-
-    @Override
-    public int compareTo(Vertex o) {
-        return Double.compare(minDistance, o.minDistance);
     }
 
     @Override

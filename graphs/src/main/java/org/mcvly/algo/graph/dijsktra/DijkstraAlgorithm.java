@@ -13,26 +13,29 @@ public class DijkstraAlgorithm {
 
     private Graph graph;
     private Vertex source;
+    private Heap heap;
 
-    public void computeShortestPaths(Graph g, Vertex source) {
+    /**
+     * Cormen's Dijkstra's Algorithm implementation
+     */
+    public void dijkstra(Graph g, Vertex source) {
         this.graph = g;
         this.source = source;
-        PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
-        source.setMinDistance(0);
-        vertexQueue.add(source);
+        heap = new Heap();
+        heap.heapify(g.getVertices());
+        heap.setKey(source, 0d);
 
-        while (!vertexQueue.isEmpty()) {
-            Vertex w = vertexQueue.poll();
-            if (w.getAdjacents() != null) {
-                for (Edge e : w.getAdjacents()) {
-                    Vertex v = e.getTarget();
-                    double distanceThrouW = w.getMinDistance() + e.getWeight();
-                    if (distanceThrouW < v.getMinDistance()) {
-                        vertexQueue.remove(v);
-                        v.setMinDistance(distanceThrouW);
-                        v.setPrevious(w);
-                        vertexQueue.add(v);
-                    }
+        //List<Vertex> S = new ArrayList<Vertex>();
+        while (heap.size() != 0) {
+            Vertex u = heap.extractMin();
+            //S.add(u);
+            for (Edge e : u.getAdjacents()) {
+                Vertex v = e.getTarget();
+                //relaxing v
+                double distanceThrouU = heap.getKey(u) + e.getWeight();
+                if (distanceThrouU < heap.getKey(v)) {
+                    v.setPrevious(u);
+                    heap.decreaseKey(v, distanceThrouU);
                 }
             }
         }
@@ -50,5 +53,9 @@ public class DijkstraAlgorithm {
         } else {
             return null;
         }
+    }
+
+    public double getVertexDistance(Vertex target) {
+        return heap.getKey(target);
     }
 }

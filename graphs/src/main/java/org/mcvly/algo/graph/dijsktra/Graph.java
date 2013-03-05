@@ -8,7 +8,7 @@ import java.util.List;
  * Date: 26.02.13
  */
 public class Graph {
-    List<Vertex> vertices;
+    private List<Vertex> vertices;
 
     public Graph() {
         this.vertices = new ArrayList<Vertex>();
@@ -25,6 +25,10 @@ public class Graph {
             }
         }
         return null;
+    }
+
+    public List<Vertex>  getVertices() {
+        return vertices;
     }
 
     public void addVertex(Vertex v) {
