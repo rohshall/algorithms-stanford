@@ -4,6 +4,11 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * User: RMalyona
@@ -38,6 +43,14 @@ public class TestReadGraph {
         finished = System.currentTimeMillis();
         System.out.println((finished-start));
         Assert.assertEquals(875714, reversedGraph.size());
+    }
+
+    @Test
+    public void test1() {
+        Map<String,Set<String>> map = new HashMap<String, Set<String>>();
+        for (String s : map.get("a")) {
+            System.out.println();
+        }
     }
 
 }
