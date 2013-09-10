@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class SchedulingApplication {
 
-    public static class Application {
+    public static class Application implements Comparable<Application> {
         private int weight;
         private int time;
 
@@ -35,6 +36,23 @@ public class SchedulingApplication {
 
         public void setTime(int time) {
             this.time = time;
+        }
+
+        @Override
+        public int compareTo(Application o) {
+//            double dif = 1.0 * weight / time - 1.0 * o.weight / o.time;
+//            return (int) Math.signum(dif);
+            int n1 = weight - time;
+            int n2 = o.weight - o.time;
+            if (n1 == n2) {
+                return weight - o.weight;
+            }
+            return n1 - n2;
+        }
+
+        @Override
+        public String toString() {
+            return weight + " " + time;
         }
     }
 
@@ -59,14 +77,28 @@ public class SchedulingApplication {
                 throw new IOException("unable to parse data");
             }
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         return list;
     }
 
+    public static long weightedSum(List<Application> list) {
+        long res = 0;
+        long currentCompletionSum = 0;
+        for (Application ap : list) {
+            currentCompletionSum += ap.getTime();
+            res += ap.getWeight() * currentCompletionSum;
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
-        List<Application> data = readData("test.txt");
-        System.out.println(data.size());
+        List<Application> data = readData("jobs.txt");
+        System.out.println(data);
+        Collections.sort(data, Collections.reverseOrder());
+        System.out.println(data);
+        System.out.println(weightedSum(data));
     }
 }
