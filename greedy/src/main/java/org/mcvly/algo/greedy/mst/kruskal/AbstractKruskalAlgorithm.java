@@ -3,6 +3,7 @@ package org.mcvly.algo.greedy.mst.kruskal;
 import org.mcvly.algo.greedy.mst.core.Reader;
 import org.mcvly.algo.greedy.mst.core.UndirectedEdge;
 import org.mcvly.algo.greedy.mst.core.UndirectedGraph;
+import org.mcvly.algo.greedy.mst.prim.PrimAlgorithm;
 
 import java.util.*;
 
@@ -18,7 +19,7 @@ public abstract class AbstractKruskalAlgorithm {
 
         for (UndirectedEdge edge : sortedEdges) {
             if (!doesCreateCycle(edge, result)) {
-                result.addEdge(edge);
+                addEdgeToGraph(result, edge);
             }
         }
 
@@ -26,6 +27,10 @@ public abstract class AbstractKruskalAlgorithm {
     }
 
     protected abstract boolean doesCreateCycle(UndirectedEdge edge, UndirectedGraph graph);
+
+    protected void addEdgeToGraph(UndirectedGraph graph, UndirectedEdge edge) {
+        graph.addEdge(edge);
+    }
 
     protected List<UndirectedEdge> sortEdgesByCost(Set<UndirectedEdge> edges) {
 
@@ -40,6 +45,13 @@ public abstract class AbstractKruskalAlgorithm {
         Collections.sort(sortedEdges, comparator);
 
         return sortedEdges;
+    }
+
+    public static void main(String[] args) {
+        UndirectedGraph graph = Reader.readFromFileInClasspath("edges.txt");
+        AbstractKruskalAlgorithm algorithm = new UnionFindImplementation();
+        UndirectedGraph g = algorithm.minimumSpanningTree(graph);
+        System.out.println(PrimAlgorithm.sumOfEdges(g));
     }
 
 }

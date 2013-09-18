@@ -62,11 +62,4 @@ public class StraightforwardImplementation extends AbstractKruskalAlgorithm {
 
         return visited;
     }
-
-    public static void main(String[] args) {
-        UndirectedGraph graph = Reader.readFromFileInClasspath("edges.txt");
-        AbstractKruskalAlgorithm algorithm = new StraightforwardImplementation();
-        UndirectedGraph g = algorithm.minimumSpanningTree(graph);
-        System.out.println(PrimAlgorithm.sumOfEdges(g));
-    }
 }
