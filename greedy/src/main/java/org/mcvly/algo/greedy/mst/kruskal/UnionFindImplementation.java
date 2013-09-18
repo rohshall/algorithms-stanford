@@ -1,5 +1,7 @@
 package org.mcvly.algo.greedy.mst.kruskal;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,12 +19,12 @@ public class UnionFindImplementation extends AbstractKruskalAlgorithm {
     Map<Vertex, Union> union = new HashMap<>();
 
     private class Union {
-        private int size;
+        private List<Vertex> vertices;
         private String name;
 
-        public Union(String name) {
-            this.name = name;
-            size = 1;
+        public Union(Vertex vertex) {
+            this.name = vertex.getName();
+            this.vertices = new ArrayList<>(Arrays.asList(vertex));
         }
 
         @Override
@@ -32,15 +34,15 @@ public class UnionFindImplementation extends AbstractKruskalAlgorithm {
 
             Union union = (Union) o;
 
-            if (size != union.size) return false;
             if (!name.equals(union.name)) return false;
+            if (!vertices.equals(union.vertices)) return false;
 
             return true;
         }
 
         @Override
         public int hashCode() {
-            int result = size;
+            int result = vertices.hashCode();
             result = 31 * result + name.hashCode();
             return result;
         }
@@ -49,7 +51,7 @@ public class UnionFindImplementation extends AbstractKruskalAlgorithm {
     @Override
     public UndirectedGraph minimumSpanningTree(UndirectedGraph g) {
         for (Vertex v : g.getVertices()) {
-            union.put(v, new Union(v.getName()));
+            union.put(v, new Union(v));
         }
 
         return super.minimumSpanningTree(g);
@@ -70,7 +72,7 @@ public class UnionFindImplementation extends AbstractKruskalAlgorithm {
         // fuse unions
         Union larger, smaller;
 
-        if ( union.get(edge.getFirstVertex()).size > union.get(edge.getSecondVertex()).size) {
+        if (union.get(edge.getFirstVertex()).vertices.size() > union.get(edge.getSecondVertex()).vertices.size()) {
             larger = union.get(edge.getFirstVertex());
             smaller = union.get(edge.getSecondVertex());
         } else {
@@ -78,11 +80,9 @@ public class UnionFindImplementation extends AbstractKruskalAlgorithm {
             smaller = union.get(edge.getFirstVertex());
         }
 
-        larger.size += smaller.size;
-        for (Map.Entry<Vertex, Union> entry : union.entrySet()) {
-            if (entry.getValue().equals(smaller)) {
-                entry.setValue(larger);
-            }
+        larger.vertices.addAll(smaller.vertices);
+        for (Vertex vertex : smaller.vertices) {
+            union.put(vertex, larger);
         }
     }
 }
