@@ -1,4 +1,4 @@
-package org.mcvly.algo.greedy;
+package org.mcvly.algo.greedy.scheduling;
 
 import java.io.BufferedReader;
 import java.io.IOException;
