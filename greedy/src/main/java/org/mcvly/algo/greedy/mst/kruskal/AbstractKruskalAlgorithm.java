@@ -14,25 +14,18 @@ public abstract class AbstractKruskalAlgorithm {
 
     public UndirectedGraph minimumSpanningTree(UndirectedGraph g) {
         List<UndirectedEdge> sortedEdges = sortEdgesByCost(g.getEdges());
-        Set<UndirectedEdge> edgesInTree = new HashSet<>();
+        UndirectedGraph result = new UndirectedGraph();
 
         for (UndirectedEdge edge : sortedEdges) {
-            System.out.println(edge);
-            if (!doesCreateCycle(edge, edgesInTree)) {
-                System.out.println("included");
-                edgesInTree.add(edge);
+            if (!doesCreateCycle(edge, result)) {
+                result.addEdge(edge);
             }
-            System.out.println();
         }
-
-
-        UndirectedGraph result = new UndirectedGraph();
-        result.setEdges(edgesInTree);
 
         return result;
     }
 
-    protected abstract boolean doesCreateCycle(UndirectedEdge edge, Set<UndirectedEdge> graph);
+    protected abstract boolean doesCreateCycle(UndirectedEdge edge, UndirectedGraph graph);
 
     protected List<UndirectedEdge> sortEdgesByCost(Set<UndirectedEdge> edges) {
 

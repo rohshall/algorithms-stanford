@@ -23,8 +23,7 @@ public class Reader {
                 int nodesCount = Integer.parseInt(counts[0]);
                 int edgesCount = Integer.parseInt(counts[1]);
 
-                Set<Vertex> vertices = new HashSet<>(nodesCount);
-                Set<UndirectedEdge> edges = new HashSet<>(edgesCount);
+                UndirectedGraph graph = new UndirectedGraph();
 
                 for (int i = 0; i < edgesCount; i++) {
                     s = r.readLine();
@@ -39,14 +38,8 @@ public class Reader {
                     Vertex vertex2 = new Vertex(stringPoints[1]);
                     UndirectedEdge edge = new UndirectedEdge(cost, vertex1, vertex2);
 
-                    vertices.add(vertex1);
-                    vertices.add(vertex2);
-                    edges.add(edge);
+                    graph.addEdge(edge);
                 }
-
-                UndirectedGraph graph = new UndirectedGraph();
-                graph.setEdges(edges);
-                graph.setVertices(vertices);
 
                 return graph;
         } catch (NumberFormatException | IOException e) {

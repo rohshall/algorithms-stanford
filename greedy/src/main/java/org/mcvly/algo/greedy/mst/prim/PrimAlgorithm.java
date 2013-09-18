@@ -20,19 +20,16 @@ public class PrimAlgorithm {
         Set<Vertex> visited = new HashSet<>();
         visited.add(g.getVertices().iterator().next());
         System.out.println("at start " + visited);
+        UndirectedGraph result = new UndirectedGraph();
 
         //TODO: use heaps to speed up this algorithm
         while(visited.size() != g.getVertices().size()) {
             UndirectedEdge cheapest = getCheapestEdge(g.getEdges(), visited);
             System.out.println("Cheapest " + cheapest);
-            edgesInTree.add(cheapest);
+            result.addEdge(cheapest);
             visited.add(cheapest.getFirstVertex());
             visited.add(cheapest.getSecondVertex());
         }
-
-        UndirectedGraph result = new UndirectedGraph();
-        result.setEdges(edgesInTree);
-        result.setVertices(visited);
 
         return result;
     }
@@ -64,6 +61,9 @@ public class PrimAlgorithm {
 
     public static void main(String[] args) {
         UndirectedGraph graph = Reader.readFromFileInClasspath("edges.txt");
+        //primcase 37
+        // simple_graph 11
+        // edges  -3612829
         System.out.println(graph);
         UndirectedGraph mst = minimumSpanningTree(graph);
         System.out.println(mst);
