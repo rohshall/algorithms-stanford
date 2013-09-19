@@ -60,8 +60,8 @@ public class PrimAlgorithm {
     }
 
     public static void main(String[] args) {
-        UndirectedGraph graph = Reader.readFromFileInClasspath("edges.txt");
-        //primcase 37
+        UndirectedGraph graph = Reader.readFromFileInClasspath("primcase.txt");
+        //primcase 120971
         // simple_graph 11
         // edges  -3612829
         System.out.println(graph);

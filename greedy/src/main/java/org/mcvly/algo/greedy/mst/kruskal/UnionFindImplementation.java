@@ -16,9 +16,9 @@ import org.mcvly.algo.greedy.mst.core.Vertex;
  */
 public class UnionFindImplementation extends AbstractKruskalAlgorithm {
 
-    Map<Vertex, Union> union = new HashMap<>();
+    protected Map<Vertex, Union> union = new HashMap<>();
 
-    private class Union {
+    protected class Union {
         private List<Vertex> vertices;
         private String name;
 

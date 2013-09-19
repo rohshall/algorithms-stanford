@@ -16,17 +16,18 @@ public class Reader {
         try (BufferedReader r = new BufferedReader(new InputStreamReader(Reader.class.getClassLoader().getResourceAsStream(fileName)))) {
                 String s = r.readLine();
                 // first line [number_of_nodes] [number_of_edges]
-                String[] counts = s.split(" ");
-                if (counts.length != 2) {
-                    throw new IOException("wrong format of count");
-                }
-                int nodesCount = Integer.parseInt(counts[0]);
-                int edgesCount = Integer.parseInt(counts[1]);
+//                String[] counts = s.split(" ");
+//                if (counts.length != 2) {
+//                    throw new IOException("wrong format of count");
+//                }
+//                int nodesCount = Integer.parseInt(counts[0]);
+//                int edgesCount = Integer.parseInt(counts[1]);
 
                 UndirectedGraph graph = new UndirectedGraph();
 
-                for (int i = 0; i < edgesCount; i++) {
-                    s = r.readLine();
+                s = r.readLine();
+
+                while (s != null) {
                     String[] stringPoints = s.split(" ");
                     if (stringPoints.length != 3) {
                         throw new IOException("wrong points format");
@@ -39,6 +40,8 @@ public class Reader {
                     UndirectedEdge edge = new UndirectedEdge(cost, vertex1, vertex2);
 
                     graph.addEdge(edge);
+
+                    s = r.readLine();
                 }
 
                 return graph;
@@ -49,7 +52,7 @@ public class Reader {
     }
 
     public static void main(String[] args) {
-        UndirectedGraph graph = readFromFileInClasspath("simple_graph.txt");
+        UndirectedGraph graph = readFromFileInClasspath("simple_clustering.txt");
         System.out.println(graph.getEdges().size());
         System.out.println(graph.getVertices().size());
         System.out.println(graph);
