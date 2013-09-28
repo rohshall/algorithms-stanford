@@ -1,14 +1,10 @@
 package org.mcvly.algo.greedy.mst.kruskal;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.mcvly.algo.greedy.mst.core.UndirectedEdge;
 import org.mcvly.algo.greedy.mst.core.UndirectedGraph;
 import org.mcvly.algo.greedy.mst.core.Vertex;
+
+import java.util.*;
 
 /**
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>

@@ -1,15 +1,11 @@
 package org.mcvly.algo.greedy.mst.kruskal;
 
-import org.mcvly.algo.greedy.mst.core.Reader;
 import org.mcvly.algo.greedy.mst.core.UndirectedEdge;
 import org.mcvly.algo.greedy.mst.core.UndirectedGraph;
 import org.mcvly.algo.greedy.mst.core.Vertex;
-import org.mcvly.algo.greedy.mst.prim.PrimAlgorithm;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
