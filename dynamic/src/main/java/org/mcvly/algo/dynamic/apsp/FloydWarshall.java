@@ -1,10 +1,10 @@
 package org.mcvly.algo.dynamic.apsp;
 
-import java.io.IOException;
+import org.mcvly.algo.dynamic.apsp.graph.*;
 
-import org.mcvly.algo.dynamic.apsp.graph.DirectedGraph;
-import org.mcvly.algo.dynamic.apsp.graph.DirectedGraphReader;
-import org.mcvly.algo.dynamic.apsp.graph.NegativeCycleException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
@@ -12,30 +12,32 @@ import org.mcvly.algo.dynamic.apsp.graph.NegativeCycleException;
  */
 public class FloydWarshall {
 
-    private DirectedGraph graph;
+    private MatrixGraph graph;
     private int[][] array;
+    private int[][] paths;
     int n;
 
-    public FloydWarshall(DirectedGraph graph) {
+    public FloydWarshall(MatrixGraph graph) {
         this.graph = graph;
         n = graph.getVertexCount();
-        array = new int[n+1][n+1];
-    }
-
-    private void preprocess() {
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
-                array[i][j] = graph.edgeCost(i, j);
+        array = graph.getAdjacencyMatrix();
+        paths = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                paths[i][j] = -1;
             }
         }
     }
 
     private void mainLoop() {
-        for (int k = 1; k <= n; k++) {
-            for (int i = 1; i <= n; i++) {
-                for (int j = 1; j <= n; j++) {
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
                     if (array[i][k] != Integer.MAX_VALUE && array[k][j] != Integer.MAX_VALUE) {
-                        array[i][j] = Math.min(array[i][j], array[i][k] + array[k][j]);
+                        if (array[i][j] > array[i][k] + array[k][j]) {
+                            array[i][j] = array[i][k] + array[k][j];
+                            paths[i][j] = k;
+                        }
                     }
                 }
             }
@@ -43,7 +45,7 @@ public class FloydWarshall {
     }
 
     private boolean hasNegativeCycle() {
-        for (int i = 0; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
             if (array[i][i] < 0) {
                 return true;
             }
@@ -52,7 +54,6 @@ public class FloydWarshall {
     }
 
     public void runAlgorithm() throws NegativeCycleException {
-        preprocess();
         mainLoop();
 
         if (hasNegativeCycle()) {
@@ -62,8 +63,8 @@ public class FloydWarshall {
 
     public int minOfShortest() {
         int minVal = Integer.MAX_VALUE;
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 if (i != j) {
                     if (array[i][j] < minVal) {
                         minVal = array[i][j];
@@ -75,8 +76,22 @@ public class FloydWarshall {
         return minVal;
     }
 
-    public int shortestPath(int v1, int v2) {
-        return array[v1][v2];
+    public int shortestPathLength(int v1, int v2) {
+        return array[v1-1][v2-1];
+    }
+
+    public List<Integer> getShortestPath(int v1, int v2) {
+        int i1 = v1 -1;
+        int i2 = v2 -1;
+        List<Integer> res = new ArrayList<>();
+        int k = paths[i1][i2];
+        if (k != -1) {
+            res.add(k+1);
+            res.addAll(getShortestPath(i1+1, k+1));
+            res.addAll(getShortestPath(k+1, i2+1));
+        }
+
+        return res;
     }
 
     public static void main(String[] args) throws IOException, NegativeCycleException {
@@ -95,11 +110,12 @@ public class FloydWarshall {
          5 - {1: 8, 2: 5, 3: 1, 4: 6, 5: 0}
          Shortest shortest path is -5.
          */
-        String fileName = "graphs/large.txt";
+        String fileName = "graphs/simple.txt";
         //String fileName = "graphs/g3.txt"; // -19
-        DirectedGraph graph = DirectedGraphReader.readGraph(fileName);
+        MatrixGraph graph = (MatrixGraph) DirectedGraphReader.readGraph(fileName, GraphFactory.Graphs.MATRIX);
         FloydWarshall algorithm = new FloydWarshall(graph);
         algorithm.runAlgorithm();
         System.out.println(algorithm.minOfShortest());
+        System.out.println(algorithm.getShortestPath(3,5));
     }
 }

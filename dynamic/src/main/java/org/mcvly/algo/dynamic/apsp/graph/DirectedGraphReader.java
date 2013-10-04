@@ -9,14 +9,14 @@ import java.util.Scanner;
  */
 public class DirectedGraphReader {
 
-    public static DirectedGraph readGraph(String fileName) throws IOException {
+    public static DirectedGraph readGraph(String fileName, GraphFactory.Graphs type) throws IOException {
 
         try (Scanner scanner = new Scanner(DirectedGraphReader.class.getClassLoader().getResourceAsStream(fileName))) {
 
             int nodesCount = scanner.nextInt();
             int edgesCount = scanner.nextInt();
 
-            DirectedGraph graph = new DirectedGraph(nodesCount, edgesCount);
+            DirectedGraph graph = GraphFactory.createGraph(nodesCount, edgesCount, type);
 
             while (scanner.hasNextInt()) {
 
