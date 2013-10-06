@@ -1,9 +1,6 @@
 package org.mcvly.algo.dynamic.apsp.graph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
@@ -25,11 +22,15 @@ public class AdjacencyGraph implements DirectedGraph {
         return vertexCount;
     }
 
+    public Collection<Integer> getVertices() {
+        return graph.keySet();
+    }
+
     public int getEdgesCount() {
         return edgesCount;
     }
 
-    public int getEdgeCost(int v1, int v2) {
+    public double getEdgeCost(int v1, int v2) {
         if (v1 == v2) {
             return 0;
         }
@@ -43,10 +44,10 @@ public class AdjacencyGraph implements DirectedGraph {
             }
         }
 
-        return Integer.MAX_VALUE;
+        return Double.POSITIVE_INFINITY;
     }
 
-    public void addEdge(int v1, int v2, int cost) {
+    public void addEdge(int v1, int v2, double cost) {
         if (!graph.containsKey(v1)) {
             graph.put(v1, new ArrayList<Edge>());
 
@@ -57,4 +58,13 @@ public class AdjacencyGraph implements DirectedGraph {
     public Map<Integer, List<Edge>> getGraph() {
         return graph;
     }
+
+    public List<Edge> adj(int v) {
+        if (!graph.containsKey(v)) {
+            return new ArrayList<>();
+        }
+
+        return graph.get(v);
+    }
+
 }

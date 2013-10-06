@@ -8,8 +8,8 @@ public interface DirectedGraph {
 
     int getVertexCount();
 
-    int getEdgeCost(int v1, int v2);
+    double getEdgeCost(int v1, int v2);
 
-    void addEdge(int v1, int v2, int cost);
+    void addEdge(int v1, int v2, double cost);
 
 }

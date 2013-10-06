@@ -7,9 +7,9 @@ package org.mcvly.algo.dynamic.apsp.graph;
 public class Edge {
 
     private int from, to;
-    private int cost;
+    private double cost;
 
-    public Edge(int from, int to, int cost) {
+    public Edge(int from, int to, double cost) {
         this.from = from;
         this.to = to;
         this.cost = cost;
@@ -31,43 +31,36 @@ public class Edge {
         this.to = to;
     }
 
-    public int getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Edge edge = (Edge) o;
 
-        if (cost != edge.cost) {
-            return false;
-        }
-        if (from != edge.from) {
-            return false;
-        }
-        if (to != edge.to) {
-            return false;
-        }
+        if (Double.compare(edge.cost, cost) != 0) return false;
+        if (from != edge.from) return false;
+        if (to != edge.to) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = from;
+        int result;
+        long temp;
+        result = from;
         result = 31 * result + to;
-        result = 31 * result + cost;
+        temp = Double.doubleToLongBits(cost);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 }

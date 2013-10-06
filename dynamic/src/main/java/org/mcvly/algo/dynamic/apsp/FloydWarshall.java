@@ -13,7 +13,7 @@ import java.util.List;
 public class FloydWarshall {
 
     private MatrixGraph graph;
-    private int[][] array;
+    private double[][] array;
     private int[][] paths;
     int n;
 
@@ -33,7 +33,7 @@ public class FloydWarshall {
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (array[i][k] != Integer.MAX_VALUE && array[k][j] != Integer.MAX_VALUE) {
+                    if (array[i][k] != Double.POSITIVE_INFINITY && array[k][j] != Double.POSITIVE_INFINITY) {
                         if (array[i][j] > array[i][k] + array[k][j]) {
                             array[i][j] = array[i][k] + array[k][j];
                             paths[i][j] = k;
@@ -61,8 +61,8 @@ public class FloydWarshall {
         }
     }
 
-    public int minOfShortest() {
-        int minVal = Integer.MAX_VALUE;
+    public double minOfShortest() {
+        double minVal = Double.POSITIVE_INFINITY;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i != j) {
@@ -76,19 +76,17 @@ public class FloydWarshall {
         return minVal;
     }
 
-    public int shortestPathLength(int v1, int v2) {
-        return array[v1-1][v2-1];
+    public double shortestPathLength(int v1, int v2) {
+        return array[v1][v2];
     }
 
     public List<Integer> getShortestPath(int v1, int v2) {
-        int i1 = v1 -1;
-        int i2 = v2 -1;
         List<Integer> res = new ArrayList<>();
-        int k = paths[i1][i2];
+        int k = paths[v1][v2];
         if (k != -1) {
-            res.add(k+1);
-            res.addAll(getShortestPath(i1+1, k+1));
-            res.addAll(getShortestPath(k+1, i2+1));
+            res.add(k);
+            res.addAll(getShortestPath(v1, k));
+            res.addAll(getShortestPath(k, v2));
         }
 
         return res;
@@ -110,12 +108,12 @@ public class FloydWarshall {
          5 - {1: 8, 2: 5, 3: 1, 4: 6, 5: 0}
          Shortest shortest path is -5.
          */
-        String fileName = "graphs/simple.txt";
+        String fileName = "graphs/g3.txt";
         //String fileName = "graphs/g3.txt"; // -19
         MatrixGraph graph = (MatrixGraph) DirectedGraphReader.readGraph(fileName, GraphFactory.Graphs.MATRIX);
         FloydWarshall algorithm = new FloydWarshall(graph);
         algorithm.runAlgorithm();
         System.out.println(algorithm.minOfShortest());
-        System.out.println(algorithm.getShortestPath(3,5));
+        System.out.println(algorithm.getShortestPath(399, 903));
     }
 }

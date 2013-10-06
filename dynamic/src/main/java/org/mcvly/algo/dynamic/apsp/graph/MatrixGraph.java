@@ -7,15 +7,15 @@ package org.mcvly.algo.dynamic.apsp.graph;
 public class MatrixGraph implements DirectedGraph {
 
     private int n;
-    private int[][] adjacencyMatrix;
+    private double[][] adjacencyMatrix;
 
     public MatrixGraph(int n) {
         this.n = n;
-        adjacencyMatrix = new int[n][n];
+        adjacencyMatrix = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i != j) {
-                    adjacencyMatrix[i][j] = Integer.MAX_VALUE;
+                    adjacencyMatrix[i][j] = Double.POSITIVE_INFINITY;
                 }
             }
         }
@@ -25,15 +25,15 @@ public class MatrixGraph implements DirectedGraph {
         return n;
     }
 
-    public int getEdgeCost(int v1, int v2) {
+    public double getEdgeCost(int v1, int v2) {
         return adjacencyMatrix[v1][v2];
     }
 
-    public void addEdge(int v1, int v2, int cost) {
+    public void addEdge(int v1, int v2, double cost) {
         adjacencyMatrix[v1-1][v2-1] = cost;
     }
 
-    public int[][] getAdjacencyMatrix() {
+    public double[][] getAdjacencyMatrix() {
         return adjacencyMatrix;
     }
 }

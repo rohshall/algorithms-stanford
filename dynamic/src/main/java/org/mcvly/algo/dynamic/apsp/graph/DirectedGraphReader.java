@@ -22,7 +22,7 @@ public class DirectedGraphReader {
 
                 int v1 = scanner.nextInt();
                 int v2 = scanner.nextInt();
-                int cost = scanner.nextInt();
+                double cost = scanner.nextDouble();
 
                 graph.addEdge(v1, v2, cost);
             }
