@@ -6,33 +6,33 @@ import java.util.*;
  * User: RMalyona
  * Date: 02.03.13
  */
-public class Heap {
-    private ArrayList<Vertex> array;
-    Map<Vertex, Integer> indices;
-    Map<Vertex, Double> keys;
+public class Heap<T> {
+    private ArrayList<T> array;
+    Map<T, Integer> indices;
+    Map<T, Double> keys;
 
-    public void heapify(Vertex[] a) {
-        List<Vertex> list = new ArrayList<Vertex>(a.length);
+    public void heapify(T[] a) {
+        List<T> list = new ArrayList<T>(a.length);
         Collections.addAll(list, a);
         heapify(list);
     }
 
-    public void heapify(List<Vertex> list) {
-        this.array = new ArrayList<Vertex>(list);
-        indices = new HashMap<Vertex, Integer>(array.size());
-        keys = new HashMap<Vertex, Double>(array.size());
+    public void heapify(Collection<T> list) {
+        this.array = new ArrayList<T>(list);
+        indices = new HashMap<T, Integer>(array.size());
+        keys = new HashMap<T, Double>(array.size());
 
         for (int i= array.size()/2; i >=0; --i) {
             minHeapify(i);
         }
         int i = 0;
-        for (Vertex v : array) {
+        for (T v : array) {
             indices.put(v, i++);
             keys.put(v, Double.POSITIVE_INFINITY);
         }
     }
 
-    public void minHeapify(Vertex v) {
+    public void minHeapify(T v) {
         if (indices.containsKey(v)) {
             minHeapify(indices.get(v));
         }
@@ -58,24 +58,25 @@ public class Heap {
         }
     }
 
-    public Vertex extractMin() {
+    public T extractMin() {
         if (array.size() < 1) {
             throw new RuntimeException("heap underflow");
         }
-        Vertex min = array.get(0);
+        T min = array.get(0);
         swap(0, array.size()-1);
         array.remove(array.size()-1);
         minHeapify(0);
         return min;
     }
 
-    public void insert(Vertex v) {
+    public void insert(T v, double key) {
         array.add(v);
         indices.put(v, array.size() - 1);
-        decreaseKey(v, getKey(v));
+        keys.put(v, key);
+        decreaseKey(v, key);
     }
 
-    public void decreaseKey(Vertex v, double key) {
+    public void decreaseKey(T v, double key) {
         if (!keys.containsKey(v)) {
             throw new RuntimeException("Key not found");
         }
@@ -94,7 +95,7 @@ public class Heap {
     }
 
     private void swap(int i, int j) {
-        Vertex t = array.get(i);
+        T t = array.get(i);
         array.set(i, array.get(j));
         indices.put(array.get(i), i);
 
@@ -102,7 +103,14 @@ public class Heap {
         indices.put(t, j);
     }
 
-    public Vertex get(int i) {
+    public boolean contains(T element) {
+        if (!indices.containsKey(element)) {
+            return false;
+        }
+        return array.contains(element);
+    }
+
+    public T get(int i) {
         return array.get(i);
     }
 
@@ -125,18 +133,18 @@ public class Heap {
         return 2*i + 2;
     }
 
-    public Vertex peek() {
+    public T peek() {
         return array.get(0);
     }
 
-    public double getKey(Vertex v) {
+    public double getKey(T v) {
         if (keys.containsKey(v)) {
             return keys.get(v);
         }
         return Double.NaN;
     }
 
-    public void setKey(Vertex v, double k) {
+    public void setKey(T v, double k) {
         keys.put(v, k);
     }
 }

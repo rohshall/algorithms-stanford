@@ -16,13 +16,13 @@ public class TestHeap {
 
     @Test
     public void testHeapify() {
-        Heap heap1 = createHeap();
+        Heap<Vertex> heap1 = createHeap();
         testHeapProperty(heap1, 0);
     }
 
     @Test
     public void testMinHeapify() {
-        Heap heap1 = createHeap();
+        Heap<Vertex> heap1 = createHeap();
         Vertex v1 = heap1.peek();
         heap1.setKey(v1, 12d);
         heap1.minHeapify(v1);
@@ -31,7 +31,7 @@ public class TestHeap {
 
     @Test
     public void testDecreaseKey() {
-        Heap heap1 = createHeap();
+        Heap<Vertex> heap1 = createHeap();
         Vertex v1 = heap1.get(heap1.size() - 1);
         heap1.decreaseKey(v1, 0d);
         testHeapProperty(heap1, 0);
@@ -39,10 +39,9 @@ public class TestHeap {
 
     @Test
     public void testInsert() {
-        Heap heap1 = createHeap();
+        Heap<Vertex> heap1 = createHeap();
         Vertex v1 = new Vertex("0");
-        heap1.setKey(v1, 0d);
-        heap1.insert(v1);
+        heap1.insert(v1, 0d);
         testHeapProperty(heap1, 0);
     }
 
@@ -73,7 +72,7 @@ public class TestHeap {
         Assert.assertEquals(0, heap1.size());
     }
 
-    public void testHeapProperty(Heap h, int i) {
+    public void testHeapProperty(Heap<Vertex> h, int i) {
         int l = h.left(i);
         int r = h.right(i);
         if (l < h.size()) {
@@ -86,7 +85,7 @@ public class TestHeap {
         }
     }
 
-    private Heap createHeap() {
+    private Heap<Vertex> createHeap() {
         Vertex v1 = new Vertex("5");
         Vertex v2 = new Vertex("3");
         Vertex v3 = new Vertex("4");
@@ -103,7 +102,7 @@ public class TestHeap {
         list.add(v5);
         list.add(v6);
         list.add(v7);
-        Heap heap1 = new Heap();
+        Heap<Vertex> heap1 = new Heap<>();
         heap1.heapify(list);
         heap1.decreaseKey(v1, 5d);
         heap1.decreaseKey(v2, 3d);

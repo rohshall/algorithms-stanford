@@ -11,11 +11,11 @@ public class GraphFactory {
         MATRIX
     }
 
-    public static DirectedGraph createGraph(int vertices, int edges, Graphs type) {
+    public static <T> DirectedGraph<T> createGraph(int vertices, int edges, Graphs type) {
         if (type == Graphs.ADJACENCY) {
-            return new AdjacencyGraph(vertices, edges);
+            return new AdjacencyGraph<T>();
         } else {
-            return new MatrixGraph(vertices);
+            return new MatrixGraph<T>(vertices);
         }
     }
 

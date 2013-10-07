@@ -4,12 +4,12 @@ package org.mcvly.algo.dynamic.apsp.graph;
  * @author: mcvly
  * @since: 10/4/13
  */
-public interface DirectedGraph {
+public interface DirectedGraph<T> {
 
     int getVertexCount();
 
-    double getEdgeCost(int v1, int v2);
+    double getEdgeCost(Vertex<T> v1, Vertex<T> v2);
 
-    void addEdge(int v1, int v2, double cost);
+    void addEdge(Vertex<T> v1, Vertex<T> v2, double cost);
 
 }

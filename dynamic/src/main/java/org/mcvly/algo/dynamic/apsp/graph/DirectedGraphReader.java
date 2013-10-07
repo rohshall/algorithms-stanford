@@ -1,6 +1,7 @@
 package org.mcvly.algo.dynamic.apsp.graph;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -9,14 +10,16 @@ import java.util.Scanner;
  */
 public class DirectedGraphReader {
 
-    public static DirectedGraph readGraph(String fileName, GraphFactory.Graphs type) throws IOException {
+    public static DirectedGraph<Integer> readIntGraph(String fileName, GraphFactory.Graphs type) throws IOException {
 
         try (Scanner scanner = new Scanner(DirectedGraphReader.class.getClassLoader().getResourceAsStream(fileName))) {
+
+            scanner.useLocale(Locale.ENGLISH);
 
             int nodesCount = scanner.nextInt();
             int edgesCount = scanner.nextInt();
 
-            DirectedGraph graph = GraphFactory.createGraph(nodesCount, edgesCount, type);
+            DirectedGraph<Integer> graph = GraphFactory.createGraph(nodesCount, edgesCount, type);
 
             while (scanner.hasNextInt()) {
 
@@ -24,7 +27,7 @@ public class DirectedGraphReader {
                 int v2 = scanner.nextInt();
                 double cost = scanner.nextDouble();
 
-                graph.addEdge(v1, v2, cost);
+                graph.addEdge(new Vertex<>(v1), new Vertex<>(v2), cost);
             }
 
             return graph;

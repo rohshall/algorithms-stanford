@@ -13,7 +13,7 @@ public class DijkstraAlgorithm {
 
     private Graph graph;
     private Vertex source;
-    private Heap heap;
+    private Heap<Vertex> heap;
 
     /**
      * Cormen's Dijkstra's Algorithm implementation
@@ -21,7 +21,7 @@ public class DijkstraAlgorithm {
     public void dijkstra(Graph g, Vertex source) {
         this.graph = g;
         this.source = source;
-        heap = new Heap();
+        heap = new Heap<>();
         heap.heapify(g.getVertices());
         heap.setKey(source, 0d);
 

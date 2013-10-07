@@ -6,38 +6,31 @@ import java.util.*;
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
  * @since 04.10.13
  */
-public class AdjacencyGraph implements DirectedGraph {
+public class AdjacencyGraph<T> implements DirectedGraph<T> {
 
     private int vertexCount;
-    private int edgesCount;
-    private Map<Integer, List<Edge>> graph;
+    private Map<Vertex<T>, List<Edge<T>>> graph;
 
-    public AdjacencyGraph(int vertexCount, int edgesCount) {
-        this.vertexCount = vertexCount;
-        this.edgesCount = edgesCount;
-        this.graph = new HashMap<>((int) (vertexCount / 0.75));
+    public AdjacencyGraph() {
+        this.graph = new HashMap<>();
     }
 
     public int getVertexCount() {
         return vertexCount;
     }
 
-    public Collection<Integer> getVertices() {
+    public Collection<Vertex<T>> getVertices() {
         return graph.keySet();
     }
 
-    public int getEdgesCount() {
-        return edgesCount;
-    }
-
-    public double getEdgeCost(int v1, int v2) {
+    public double getEdgeCost(Vertex<T> v1, Vertex<T> v2) {
         if (v1 == v2) {
             return 0;
         }
 
         if (graph.containsKey(v1)) {
-            List<Edge> v1Adjacent = graph.get(v1);
-            for (Edge e : v1Adjacent) {
+            List<Edge<T>> v1Adjacent = graph.get(v1);
+            for (Edge<T> e : v1Adjacent) {
                 if (v2 == e.getTo()) {
                     return e.getCost();
                 }
@@ -47,19 +40,24 @@ public class AdjacencyGraph implements DirectedGraph {
         return Double.POSITIVE_INFINITY;
     }
 
-    public void addEdge(int v1, int v2, double cost) {
+    public void addEdge(Vertex<T> v1, Vertex<T> v2, double cost) {
         if (!graph.containsKey(v1)) {
-            graph.put(v1, new ArrayList<Edge>());
-
+            graph.put(v1, new ArrayList<Edge<T>>());
+            vertexCount += 1;
         }
-        graph.get(v1).add(new Edge(v1, v2, cost));
+        graph.get(v1).add(new Edge<T>(v1, v2, cost));
     }
 
-    public Map<Integer, List<Edge>> getGraph() {
+    public void removeVertex(Vertex<T> v) {
+        graph.remove(v);
+        vertexCount -= 1;
+    }
+
+    public Map<Vertex<T>, List<Edge<T>>> getGraph() {
         return graph;
     }
 
-    public List<Edge> adj(int v) {
+    public List<Edge<T>> adj(Vertex<T> v) {
         if (!graph.containsKey(v)) {
             return new ArrayList<>();
         }

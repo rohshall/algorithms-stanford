@@ -10,17 +10,17 @@ import java.util.List;
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
  * @since 04.10.13
  */
-public class FloydWarshall {
+public class FloydWarshall<T> {
 
-    private MatrixGraph graph;
-    private double[][] array;
+    private MatrixGraph<T> graph;
+    private double[][] dist;
     private int[][] paths;
     int n;
 
-    public FloydWarshall(MatrixGraph graph) {
+    public FloydWarshall(MatrixGraph<T> graph) {
         this.graph = graph;
         n = graph.getVertexCount();
-        array = graph.getAdjacencyMatrix();
+        dist = graph.getAdjacencyMatrix();
         paths = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -33,9 +33,9 @@ public class FloydWarshall {
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (array[i][k] != Double.POSITIVE_INFINITY && array[k][j] != Double.POSITIVE_INFINITY) {
-                        if (array[i][j] > array[i][k] + array[k][j]) {
-                            array[i][j] = array[i][k] + array[k][j];
+                    if (dist[i][k] != Double.POSITIVE_INFINITY && dist[k][j] != Double.POSITIVE_INFINITY) {
+                        if (dist[i][j] > dist[i][k] + dist[k][j]) {
+                            dist[i][j] = dist[i][k] + dist[k][j];
                             paths[i][j] = k;
                         }
                     }
@@ -46,7 +46,7 @@ public class FloydWarshall {
 
     private boolean hasNegativeCycle() {
         for (int i = 0; i < n; i++) {
-            if (array[i][i] < 0) {
+            if (dist[i][i] < 0) {
                 return true;
             }
         }
@@ -66,8 +66,8 @@ public class FloydWarshall {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i != j) {
-                    if (array[i][j] < minVal) {
-                        minVal = array[i][j];
+                    if (dist[i][j] < minVal) {
+                        minVal = dist[i][j];
                     }
                 }
             }
@@ -76,17 +76,18 @@ public class FloydWarshall {
         return minVal;
     }
 
-    public double shortestPathLength(int v1, int v2) {
-        return array[v1][v2];
+    public double shortestPathLength(Vertex<T> v1, Vertex<T> v2) {
+        return dist[graph.getMapping().get(v1)][graph.getMapping().get(v2)];
     }
 
-    public List<Integer> getShortestPath(int v1, int v2) {
-        List<Integer> res = new ArrayList<>();
-        int k = paths[v1][v2];
+    public List<Vertex<T>> getShortestPath(Vertex<T> v1, Vertex<T> v2) {
+        List<Vertex<T>> res = new ArrayList<>();
+        int k = paths[graph.getMapping().get(v1)][graph.getMapping().get(v2)];
         if (k != -1) {
-            res.add(k);
-            res.addAll(getShortestPath(v1, k));
-            res.addAll(getShortestPath(k, v2));
+            Vertex<T> intermediate = graph.getReverseMapping().get(k);
+            res.add(intermediate);
+            res.addAll(getShortestPath(v1, intermediate));
+            res.addAll(getShortestPath(intermediate, v2));
         }
 
         return res;
@@ -110,10 +111,10 @@ public class FloydWarshall {
          */
         String fileName = "graphs/g3.txt";
         //String fileName = "graphs/g3.txt"; // -19
-        MatrixGraph graph = (MatrixGraph) DirectedGraphReader.readGraph(fileName, GraphFactory.Graphs.MATRIX);
-        FloydWarshall algorithm = new FloydWarshall(graph);
+        MatrixGraph<Integer> graph = (MatrixGraph<Integer>) DirectedGraphReader.readIntGraph(fileName, GraphFactory.Graphs.MATRIX);
+        FloydWarshall<Integer> algorithm = new FloydWarshall<>(graph);
         algorithm.runAlgorithm();
         System.out.println(algorithm.minOfShortest());
-        System.out.println(algorithm.getShortestPath(399, 903));
+        System.out.println(algorithm.getShortestPath(new Vertex<>(399), new Vertex<>(904)));
     }
 }
