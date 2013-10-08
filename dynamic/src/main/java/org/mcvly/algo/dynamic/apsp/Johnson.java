@@ -1,18 +1,12 @@
 package org.mcvly.algo.dynamic.apsp;
 
+import org.mcvly.algo.dynamic.apsp.graph.*;
+import org.mcvly.algo.dynamic.sssp.BellmanFordAlgorithm;
+import org.mcvly.algo.dynamic.sssp.DijkstraAlgorithm;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.mcvly.algo.dynamic.apsp.graph.AdjacencyGraph;
-import org.mcvly.algo.dynamic.apsp.graph.DirectedGraphReader;
-import org.mcvly.algo.dynamic.apsp.graph.Edge;
-import org.mcvly.algo.dynamic.apsp.graph.GraphFactory;
-import org.mcvly.algo.dynamic.apsp.graph.NegativeCycleException;
-import org.mcvly.algo.dynamic.apsp.graph.Vertex;
-import org.mcvly.algo.dynamic.sssp.ApacheDijkstra;
-import org.mcvly.algo.dynamic.sssp.BellmanFordAlgorithm;
-import org.mcvly.algo.dynamic.sssp.DijkstraAlgorithm;
 
 /**
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
@@ -50,13 +44,11 @@ public class Johnson<T> {
         for (Vertex<T> u : graph.getVertices()) {
             long start = System.currentTimeMillis();
             dijkstraAlgorithm.runAlgorithm(u);
-            System.out.println("dijstra run " + (System.currentTimeMillis() - start));
-            distances.put(u, new HashMap<Vertex<T>, Double>());
+//            distances.put(u, new HashMap<Vertex<T>, Double>());
             for (Vertex<T> v : graph.getVertices()) {
                 // 5. reconstruct shortest path distances from results of Dijkstra algorithm
-                distances.get(u).put(v, dijkstraAlgorithm.getVertexDistance(v) - reweighted.get(u) + reweighted.get(v));
+//                distances.get(u).put(v, dijkstraAlgorithm.getVertexDistance(v) - reweighted.get(u) + reweighted.get(v));
             }
-            System.out.println("Processed " + i++ + " vertices of " + graph.getVertexCount());
         }
     }
 
@@ -102,7 +94,7 @@ public class Johnson<T> {
     }
 
     public static void main(String[] args) throws IOException, NegativeCycleException {
-        String fileName = "graphs/g3.txt";
+        String fileName = "graphs/large.txt";
         //String fileName = "graphs/g3.txt"; // -19
         AdjacencyGraph<Integer> graph = (AdjacencyGraph<Integer>) DirectedGraphReader.readIntGraph(fileName, GraphFactory.Graphs.ADJACENCY);
         Johnson<Integer> algorithm = new Johnson<>(graph);
