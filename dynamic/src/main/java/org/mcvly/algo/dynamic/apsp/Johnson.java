@@ -1,12 +1,17 @@
 package org.mcvly.algo.dynamic.apsp;
 
-import org.mcvly.algo.dynamic.apsp.graph.*;
-import org.mcvly.algo.dynamic.sssp.BellmanFordAlgorithm;
-import org.mcvly.algo.dynamic.sssp.DijkstraAlgorithm;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.mcvly.algo.dynamic.apsp.graph.AdjacencyGraph;
+import org.mcvly.algo.dynamic.apsp.graph.DirectedGraphReader;
+import org.mcvly.algo.dynamic.apsp.graph.Edge;
+import org.mcvly.algo.dynamic.apsp.graph.GraphFactory;
+import org.mcvly.algo.dynamic.apsp.graph.NegativeCycleException;
+import org.mcvly.algo.dynamic.apsp.graph.Vertex;
+import org.mcvly.algo.dynamic.sssp.BellmanFordAlgorithm;
+import org.mcvly.algo.dynamic.sssp.DijkstraAlgorithm;
 
 /**
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
@@ -15,18 +20,48 @@ import java.util.Map;
 public class Johnson<T> {
 
     private AdjacencyGraph<T> graph;
-    private Map<Vertex<T>, Double> reweighted;
-    private Map<Vertex<T>, Map<Vertex<T>, Double>> distances;
-//    private int[][] paths;
+    private Map<Vertex<T>, MapItem> mapping;
+    private double[] distances;
+    private double[] shortestDistances;
     private Vertex<T> nullVertex = new Vertex<T>(null);
     private int n;
+
+    private class MapItem {
+        private int index;
+        private double reweightedValue;
+
+        private MapItem(int index) {
+            this.index = index;
+        }
+
+        private int getIndex() {
+            return index;
+        }
+
+        private void setIndex(int index) {
+            this.index = index;
+        }
+
+        private double getReweightedValue() {
+            return reweightedValue;
+        }
+
+        private void setReweightedValue(double reweightedValue) {
+            this.reweightedValue = reweightedValue;
+        }
+    }
 
     public Johnson(AdjacencyGraph<T> graph) {
         this.graph = graph;
         this.n = graph.getVertexCount() + 1;
-        reweighted = new HashMap<>((int) (n / 0.75));
-        distances = new HashMap<>();
-//        paths = new int[n][n];
+        int i = 0;
+        mapping = new HashMap<>((int) (n / 0.75));
+        for (Vertex<T> v : graph.getVertices()) {
+            mapping.put(v, new MapItem(i));
+            i++;
+        }
+        distances = new double[n];
+        shortestDistances = new double[n];
     }
 
     public void runAlgorithm() throws NegativeCycleException {
@@ -44,29 +79,42 @@ public class Johnson<T> {
         for (Vertex<T> u : graph.getVertices()) {
             long start = System.currentTimeMillis();
             dijkstraAlgorithm.runAlgorithm(u);
-//            distances.put(u, new HashMap<Vertex<T>, Double>());
+            int uInd = mapping.get(u).getIndex();
+
             for (Vertex<T> v : graph.getVertices()) {
                 // 5. reconstruct shortest path distances from results of Dijkstra algorithm
-//                distances.get(u).put(v, dijkstraAlgorithm.getVertexDistance(v) - reweighted.get(u) + reweighted.get(v));
+                int vInd = mapping.get(v).getIndex();
+                double uWeight = mapping.get(u).getReweightedValue();
+                double vWeight = mapping.get(v).getReweightedValue();
+                distances[vInd] = dijkstraAlgorithm.getVertexDistance(v) - uWeight + vWeight;
             }
+            shortestDistances[uInd] = minForCurrent(uInd);
         }
     }
 
-    public double shortestPathLength(Vertex<T> v1, Vertex<T> v2) {
-        return distances.get(v1).get(v2);
-    }
-
-    public double minOfShortest() {
+    public double minForCurrent(int uInd) {
         double minVal = Double.POSITIVE_INFINITY;
-        for (Vertex<T> u : graph.getVertices()) {
-            for (Vertex<T> v : graph.getVertices()) {
-                if (!v.equals(u)) {
-                    double dist = distances.get(u).get(v);
-                    if (dist < minVal) {
-                        minVal = dist;
-                    }
+        for (int i = 0; i < n; i++) {
+            if (i != uInd) {
+                double dist = distances[i];
+                if (dist < minVal) {
+                    minVal = dist;
                 }
             }
+        }
+
+        return minVal;
+    }
+
+    public double minOfMin() {
+        double minVal = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < n; i++) {
+
+            double dist = shortestDistances[i];
+            if (dist < minVal) {
+                minVal = dist;
+            }
+
         }
 
         return minVal;
@@ -83,11 +131,13 @@ public class Johnson<T> {
 
     private void fillReweightedTable(BellmanFordAlgorithm<T> bellmanFordAlgorithm) {
         for (Vertex<T> u : graph.getVertices()) {
-            reweighted.put(u, bellmanFordAlgorithm.getShortestPathLength(u));
+            mapping.get(u).setReweightedValue(bellmanFordAlgorithm.getShortestPathLength(u));
         }
         for (Vertex<T> u : graph.getVertices()) {
             for (Edge<T> e : graph.adj(u)) {
-                e.setCost(e.getCost() + reweighted.get(e.getFrom()) - reweighted.get(e.getTo()));
+                double fromWeight = mapping.get(e.getFrom()).getReweightedValue();
+                double toWeight = mapping.get(e.getTo()).getReweightedValue();
+                e.setCost(e.getCost() + fromWeight - toWeight);
             }
         }
 
@@ -99,6 +149,6 @@ public class Johnson<T> {
         AdjacencyGraph<Integer> graph = (AdjacencyGraph<Integer>) DirectedGraphReader.readIntGraph(fileName, GraphFactory.Graphs.ADJACENCY);
         Johnson<Integer> algorithm = new Johnson<>(graph);
         algorithm.runAlgorithm();
-        System.out.println(algorithm.minOfShortest());
+        System.out.println(algorithm.minOfMin());
     }
 }
