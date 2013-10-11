@@ -3,6 +3,8 @@ package org.mcvly.algo.dynamic.tsp;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.pow;
+
 /**
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
  * @since 11.10.13
@@ -37,13 +39,25 @@ public class TravellingSalesman {
         }
     }
 
-    private List<Integer> citiesInSet(int n) {
+    private static List<Integer> citiesInSet(int n) {
         List<Integer> result = new ArrayList<>();
         for (int i=1; i<n; i++) {
-
+            if (testNBit(n, i)) {
+                result.add(i);
+            }
         }
 
         return result;
+    }
+
+    private static boolean testNBit(int x, int n) {
+        int _2n = (int) pow(2, n-1);
+        return (x & _2n) == _2n;
+    }
+
+    public static void main(String[] args) {
+        int n = 13;
+        System.out.println(citiesInSet(13));
     }
 
 }
