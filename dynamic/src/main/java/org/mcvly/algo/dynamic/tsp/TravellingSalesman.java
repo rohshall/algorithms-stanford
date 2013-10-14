@@ -14,6 +14,7 @@ public class TravellingSalesman {
     private TSPInstance tspInstance;
     private int[] sets;
     private double[][] array;
+    private List<List<Integer>> setSizes;
     private int n;
     private int setNumber;
 
@@ -22,26 +23,68 @@ public class TravellingSalesman {
         this.n = tspInstance.getN();
         this.setNumber = (int) Math.pow(2, n-1);
         this.array = new double[setNumber][n];
+        setSizes = new ArrayList<>();
         preprocess();
     }
 
     private void preprocess() {
-        for (int i=0; i<setNumber; i++) {
+        for (int i=1; i<setNumber; i++) {
             array[i][0] = Double.POSITIVE_INFINITY;
         }
+
+        for (int m=0; m<n; m++) {
+              setSizes.add(new ArrayList<Integer>());
+        }
+        for (int m=1; m<setNumber; m++) {
+            List<Integer> list = citiesInSet(m);
+            setSizes.get(list.size()).add(m);
+        }
+
     }
 
     private void mainLoop() {
-        for (int i=1; i<setNumber; i++) {
-            for (int j : citiesInSet(i)) {
-
+        for (int m=1; m<n; m++) {
+            // for each set
+            for (int s : setSizes.get(m)) {
+                // for each j in s
+                List<Integer> citiesInSet = citiesInSet(s);
+                citiesInSet.add(0);
+                for (int j : citiesInSet) {
+                    if (j == 0) {
+                        continue;
+                    }
+                    double min = Double.POSITIVE_INFINITY;
+                    for (int k : citiesInSet) {
+                        if (k == j) {
+                            continue;
+                        }
+                        int twoPowN = (int) pow(2, j-1);
+                        double val = array[s^twoPowN][k] + tspInstance.getDistanceBetweenTwoCities(k, j);
+                        if (val < min) {
+                            min = val;
+                        }
+                    }
+                    array[s][j] = min;
+                }
             }
         }
     }
 
+    private double lastHop() {
+        double min = Double.POSITIVE_INFINITY;
+        for (int j = 1; j < n; j++) {
+            double val = array[setNumber-1][j] + tspInstance.getDistanceBetweenTwoCities(j, 0);
+            if (val < min) {
+                min = val;
+            }
+        }
+
+        return min;
+    }
+
     private static List<Integer> citiesInSet(int n) {
         List<Integer> result = new ArrayList<>();
-        for (int i=1; i<n; i++) {
+        for (int i=1; i<=n; i++) {
             if (testNBit(n, i)) {
                 result.add(i);
             }
@@ -51,13 +94,15 @@ public class TravellingSalesman {
     }
 
     private static boolean testNBit(int x, int n) {
-        int _2n = (int) pow(2, n-1);
-        return (x & _2n) == _2n;
+        int twoPowN = (int) pow(2, n-1);
+        return (x & twoPowN) == twoPowN;
     }
 
     public static void main(String[] args) {
-        int n = 13;
-        System.out.println(citiesInSet(13));
+        TSPInstance tspInstance1 = TSPReader.readFromFile("tsp/medium.txt");
+        TravellingSalesman algorithm = new TravellingSalesman(tspInstance1);
+        algorithm.mainLoop();
+        System.out.println(algorithm.lastHop());
     }
 
 }

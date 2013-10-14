@@ -3,8 +3,6 @@ package org.mcvly.algo.dynamic.tsp;
 import java.util.Locale;
 import java.util.Scanner;
 
-import org.mcvly.algo.dynamic.apsp.graph.DirectedGraph;
-
 /**
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
  * @since 11.10.13
@@ -22,7 +20,7 @@ public class TSPReader {
 
             int i = 0;
 
-            while (scanner.hasNextInt()) {
+            while (scanner.hasNextLine()) {
 
                 double v1 = scanner.nextDouble();
                 double v2 = scanner.nextDouble();
