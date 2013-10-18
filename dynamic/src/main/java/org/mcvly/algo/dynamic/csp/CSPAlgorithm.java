@@ -1,11 +1,6 @@
 package org.mcvly.algo.dynamic.csp;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
@@ -17,58 +12,112 @@ public class CSPAlgorithm {
     private Random random;
     private BitSet bitSet;
     private int n;
+    private Set<Integer> redundantClauses = new HashSet<>();
+    private Set<Integer> definedValues = new HashSet<>();
+    private Set<Integer> existingNumbers;
+    private Map<Integer, List<Integer>> numbersAndClauses;
 
     public CSPAlgorithm(String fileName) {
         problem = TwoSatReader.readFromFile(fileName);
         random = new Random();
         n = problem.getN();
-        bitSet = preprocessing(problem);
+        bitSet = new BitSet(n);
+        existingNumbers = getExistingNumbers();
+        numbersAndClauses = getNumbersAndClausesMap();
+
+        preprocessing(problem);
     }
 
-    private BitSet preprocessing(TwoSatInstance originalProblem) {
-        BitSet newBS = new BitSet(n);
-        Set<Integer> excluded = new HashSet<>();
-        for (int i = 0; i < n; i++) {
-            List<Integer> clausesList = new ArrayList<>();
-            for (int j = 0; j < n; j++) {
-                Clause clause = originalProblem.getClause(j);
-                if (i == clause.getX()) {
-                    clausesList.add(clause.notX() ? -i : i);
-                } else if (i == clause.getY()) {
-                    clausesList.add(clause.notY() ? -i : i);
-                }
-            }
+    private void preprocessing(TwoSatInstance originalProblem) {
 
-            if (clausesList.size() == 0) {
-                n = n - 1;
-            } else {
-                boolean isSame = true;
-                boolean less = clausesList.get(0) < 0;
-                for (int j = 1; j < clausesList.size(); j++) {
-                    if (clausesList.get(j) > 0 == less) {
-                        isSame = false;
-                        break;
+        for (int i : existingNumbers) {
+            if (numbersAndClauses.containsKey(i) && !numbersAndClauses.containsKey(-i) ||
+                    !numbersAndClauses.containsKey(i) && numbersAndClauses.containsKey(-i)) {
+                definedValues.add(i);
+                redundantClauses.addAll(numbersAndClauses.get(i));
+                if (numbersAndClauses.containsKey(i)) {
+                    bitSet.set(i);
+                }
+            } else {  //both x and -x
+                for (int j : numbersAndClauses.get(i)) {
+                    for (int k : numbersAndClauses.get(-i)) {
+                        int otherJ = getOtherVariable(j, i);
+                        int otherK = getOtherVariable(k ,i);
+                        if (otherJ == otherK) {
+                            if (otherJ < 0) {
+                                throw new RuntimeException("can't be false");
+                            }
+                            redundantClauses.add(j);
+                            redundantClauses.add(k);
+                            setValueTrue(otherJ); // they can't be false
+                        } else if (otherJ == -otherK) {
+                            redundantClauses.add(k);
+                        }
                     }
                 }
-                if (isSame && clausesList.size() > 1) {
-                    if (!less) {
-                        newBS.set(i);
-                    }
-                    excluded.addAll(clausesList);
+            }
+        }
+    }
+
+    private void setValueTrue(int n) {
+        definedValues.add(n);
+        bitSet.set(n);
+
+        if (numbersAndClauses.containsKey(-n)) {
+            for (int i : numbersAndClauses.get(-n)) {
+                int other = getOtherVariable(i, n);
+                definedValues.add(other);
+                redundantClauses.add(i);
+                if (other > 0) {
+                    bitSet.set(other);
+                    setValueTrue(other);
                 }
             }
-
         }
 
-        List<Clause> newClauses = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            if (!excluded.contains(i)) {
-                newClauses.add(problem.getClause(i));
+    }
+
+    private int getOtherVariable(int clauseN, int varN) {
+        Clause clause = problem.getClause(clauseN);
+        if (clause.getX() == varN) {
+            return clause.notY() ? -clause.getY() : clause.getY();
+        }
+
+        return clause.notX() ? -clause.getX() : clause.getX();
+    }
+
+    private Set<Integer> getExistingNumbers() {
+        Set<Integer> existingNumbers = new HashSet<>();
+        for (Clause clause : problem.getClauses()) {
+            existingNumbers.add(clause.getX());
+            existingNumbers.add(clause.getY());
+        }
+
+        return existingNumbers;
+    }
+
+    private Map<Integer, List<Integer>> getNumbersAndClausesMap() {
+        Map<Integer, List<Integer>> numbersAndClauses = new HashMap<>();
+
+        for (int i=1; i<=n; i++) {
+            Clause clause = problem.getClause(i);
+            int x, y;
+            x = clause.notX() ? -clause.getX() : clause.getX();
+            y = clause.notY() ? -clause.getY() : clause.getY();
+
+            if (!numbersAndClauses.containsKey(x)) {
+                numbersAndClauses.put(x, new ArrayList<Integer>());
             }
+
+            if (!numbersAndClauses.containsKey(y)) {
+                numbersAndClauses.put(y, new ArrayList<Integer>());
+            }
+
+            numbersAndClauses.get(x).add(i);
+            numbersAndClauses.get(y).add(i);
         }
 
-        problem.setClauses(newClauses.toArray(new Clause[0]));
-        return newBS;
+        return numbersAndClauses;
     }
 
     public BitSet runAlgorithm() throws NotSatisfiableSolutionException {
@@ -98,11 +147,11 @@ public class CSPAlgorithm {
     public static void main(String[] args) {
         //simple
         CSPAlgorithm algorithm = new CSPAlgorithm("2sat/simple.txt");
-        try {
-            System.out.println(algorithm.runAlgorithm());
-        } catch (NotSatisfiableSolutionException e) {
-            System.out.println("no satisfiable solution");
-        }
+//        try {
+//            System.out.println(algorithm.runAlgorithm());
+//        } catch (NotSatisfiableSolutionException e) {
+//            System.out.println("no satisfiable solution");
+//        }
     }
 
 }

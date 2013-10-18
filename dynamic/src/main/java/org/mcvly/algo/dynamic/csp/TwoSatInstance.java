@@ -1,8 +1,6 @@
 package org.mcvly.algo.dynamic.csp;
 
-import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.List;
 
 /**
  * @author <a href="mailto:RMalyona@luxoft.com">Ruslan Malyona</a>
@@ -27,7 +25,7 @@ public class TwoSatInstance {
     }
 
     public Clause getClause(int n) {
-        return clauses[n];
+        return clauses[n-1];
     }
 
     public void setClauses(Clause[] clauses) {

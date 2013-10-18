@@ -12,8 +12,8 @@ public class Clause {
     private boolean notX, notY;
 
     public Clause(int x, int y) {
-        this.x = Math.abs(x)-1;
-        this.y = Math.abs(y)-1;
+        this.x = Math.abs(x);
+        this.y = Math.abs(y);
         if (x < 0) {
             notX = true;
         }
