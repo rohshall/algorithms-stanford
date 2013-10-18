@@ -36,6 +36,10 @@ public class TwoSatInstance {
         return n;
     }
 
+    public void setN(int n) {
+        this.n = n;
+    }
+
     public Clause evaluate(BitSet bs) {
 
         for (Clause clause : clauses) {

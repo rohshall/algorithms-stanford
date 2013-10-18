@@ -61,6 +61,12 @@ public class Clause {
 
         Clause clause = (Clause) o;
 
+        if (notX != clause.notX) {
+            return false;
+        }
+        if (notY != clause.notY) {
+            return false;
+        }
         if (x != clause.x) {
             return false;
         }
@@ -75,6 +81,8 @@ public class Clause {
     public int hashCode() {
         int result = x;
         result = 31 * result + y;
+        result = 31 * result + (notX ? 1 : 0);
+        result = 31 * result + (notY ? 1 : 0);
         return result;
     }
 }
